@@ -1,0 +1,7 @@
+<div class="p-4 space-y-4">
+  <div *ngFor="let c of chapters" class="flex items-center justify-between">
+    <span>{{ c.name }}</span>
+    <app-chip [label]="c.status" [color]="c.status"></app-chip>
+  </div>
+  <a routerLink="/dashboard" class="text-blue-500">Back</a>
+</div>

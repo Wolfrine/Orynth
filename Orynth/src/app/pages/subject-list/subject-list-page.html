@@ -1,0 +1,9 @@
+<div class="p-4 space-y-4">
+  <app-card *ngFor="let s of subjects" class="flex items-center justify-between">
+    <div>
+      <h2 class="font-rounded text-lg">{{ s.name }}</h2>
+      <app-progress-bar [value]="s.progress"></app-progress-bar>
+    </div>
+    <a [routerLink]="['/chapter-tracker']" class="text-blue-500">Open</a>
+  </app-card>
+</div>
