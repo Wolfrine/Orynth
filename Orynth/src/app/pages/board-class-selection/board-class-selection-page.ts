@@ -1,17 +1,26 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
-import { ButtonComponent } from '../../components/button/button';
+import { CommonModule } from '@angular/common';
+import { RouterModule, Router } from '@angular/router';
 
 @Component({
   selector: 'app-board-class-selection-page',
-  imports: [FormsModule, RouterModule, ButtonComponent],
-  templateUrl: './board-class-selection-page.html',
-  styleUrl: './board-class-selection-page.scss'
+  imports: [CommonModule, RouterModule],
+  templateUrl: './board-class-selection-page.html'
 })
 export class BoardClassSelectionPageComponent {
+  step: 1 | 2 = 1;
+  selectedBoard = '';
+  selectedClass = '';
+  boards = [
+    { id: 'cbse', name: 'CBSE', description: 'Central Board of Secondary Education' },
+    { id: 'icse', name: 'ICSE', description: 'Indian Certificate of Secondary Education' },
+    { id: 'state', name: 'State Board', description: 'State Government Board' }
+  ];
+  classes = ['6', '7', '8', '9', '10', '11', '12'];
 
-  board = 'CBSE';
-  clazz = 6;
-  classes = [6, 7, 8, 9, 10, 11, 12];
+  constructor(private router: Router) {}
+
+  goHome() {
+    this.router.navigate(['/']);
+  }
 }
