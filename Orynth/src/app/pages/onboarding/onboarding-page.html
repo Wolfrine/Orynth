@@ -1,4 +1,23 @@
-<div class="min-h-screen flex flex-col items-center justify-center gap-4 p-4">
-  <h1 class="text-2xl font-rounded">Welcome to Orynth</h1>
-  <app-button routerLink="/board-class-selection">Start Tracking</app-button>
+<div class="min-h-screen flex items-center justify-center p-4 bg-gradient-to-b from-white via-gray-50 to-gray-100">
+  <div class="w-full max-w-md text-center space-y-6">
+    <div class="mx-auto flex items-center justify-center w-16 h-16 rounded-full bg-green-100">
+      <!-- Placeholder icon -->
+      <svg class="w-10 h-10 text-green-600" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="12" cy="12" r="10" />
+      </svg>
+    </div>
+    <h1 class="text-4xl font-bold font-rounded">Orynth</h1>
+    <h2 class="text-xl font-rounded">Welcome to your learning journey</h2>
+    <p class="text-gray-700">Track your progress, master every chapter, and build lasting confidence in your studies.</p>
+    <ul class="text-left space-y-2 list-disc list-inside">
+      <li>Track Progress: <span class="ml-1">Monitor your learning across all subjects</span></li>
+      <li>Build Confidence: <span class="ml-1">Rate your understanding of each topic</span></li>
+    </ul>
+    <a
+      routerLink="/board-class-selection"
+      class="block w-full sm:w-auto px-4 py-2 rounded-md bg-green-600 text-white font-rounded transition-colors hover:bg-green-700 active:bg-green-800"
+    >
+      Start Tracking
+    </a>
+  </div>
 </div>
