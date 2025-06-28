@@ -1,0 +1,10 @@
+<div class="p-4 space-y-4">
+  <div class="flex items-center gap-4">
+    <app-subject-progress-ring [value]="summary.progress"></app-subject-progress-ring>
+    <div>
+      <p class="font-rounded">{{ summary.subject }}</p>
+      <p>{{ summary.progress }}% completed</p>
+    </div>
+  </div>
+  <app-button routerLink="/subject-list">Back</app-button>
+</div>

@@ -1,0 +1,19 @@
+<div class="p-4 flex flex-col gap-4">
+  <label class="flex flex-col">
+    <span class="mb-1">Board</span>
+    <select [(ngModel)]="board" class="p-2 border rounded-md">
+      <option value="CBSE">CBSE</option>
+      <option value="ICSE">ICSE</option>
+      <option value="State">State</option>
+    </select>
+  </label>
+
+  <label class="flex flex-col">
+    <span class="mb-1">Class</span>
+    <select [(ngModel)]="clazz" class="p-2 border rounded-md">
+      <option *ngFor="let c of classes" [value]="c">{{ c }}</option>
+    </select>
+  </label>
+
+  <app-button routerLink="/subject-list">Continue</app-button>
+</div>
