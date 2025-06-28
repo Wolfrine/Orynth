@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "dist/Orynth",
+    "public": "dist/Orynth/browser",
     "ignore": [
       "firebase.json",
       "**/.*",
