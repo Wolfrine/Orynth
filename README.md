@@ -8,5 +8,13 @@ Pushes to the `main` branch run the workflow in `.github/workflows/firebase-host
 builds the project from the `Orynth` directory and deploys it using the service account defined in
 `secrets.FIREBASE_SERVICE_ACCOUNT`.
 
+## Local setup
 
-Lovable repo is present under sample folder
+Before running Angular CLI commands such as `ng serve` or `npm run build`, install the project dependencies:
+
+```bash
+cd Orynth
+npm ci
+```
+
+This installs `@angular/cli` locally so the `ng` command is available.
