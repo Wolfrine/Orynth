@@ -1,4 +1,5 @@
 export const environment = {
+  production: true,
   firebase: {
     apiKey: 'AIzaSyAcVYEVfszY8rBhPvl176VW-fkQkXMS9qg',
     authDomain: 'orynth-io.firebaseapp.com',
