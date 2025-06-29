@@ -19,10 +19,10 @@
       <div class="bg-white rounded-xl p-4 card-shadow mb-6 animate-fade-in">
         <div class="flex justify-between items-center mb-3">
           <h3 class="font-semibold text-gray-900">Progress Summary</h3>
-          <span class="text-sm text-gray-600">{{ chapters.filter(c => c.status === 'done').length }}/{{ chapters.length }} Complete</span>
+          <span class="text-sm text-gray-600">{{ completedCount }}/{{ chapters.length }} Complete</span>
         </div>
         <div class="bg-gray-200 rounded-full h-3">
-          <div class="bg-primary h-3 rounded-full transition-all" [style.width]="(chapters.filter(c => c.status === 'done').length / chapters.length * 100) + '%'"></div>
+          <div class="bg-primary h-3 rounded-full transition-all" [style.width]="completionPercentage + '%'" ></div>
         </div>
       </div>
 

@@ -16,4 +16,14 @@ export class ChapterTrackerPageComponent {
     { id: 2, name: 'Chapter 2', status: 'in-progress', confidence: 50 },
     { id: 3, name: 'Chapter 3', status: 'done', confidence: 80 }
   ];
+
+  get completedCount(): number {
+    return this.chapters.filter(c => c.status === 'done').length;
+  }
+
+  get completionPercentage(): number {
+    return this.chapters.length === 0
+      ? 0
+      : (this.completedCount / this.chapters.length) * 100;
+  }
 }
