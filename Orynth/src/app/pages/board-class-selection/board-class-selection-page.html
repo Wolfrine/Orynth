@@ -20,8 +20,8 @@
           <div class="space-y-4">
             <button *ngFor="let board of boards" (click)="selectedBoard = board.id" class="w-full p-4 rounded-xl text-left transition-all tap-highlight" [ngClass]="selectedBoard === board.id ? 'bg-primary text-white card-shadow-hover' : 'bg-white card-shadow hover:card-shadow-hover'">
               <h3 class="font-semibold text-lg">{{ board.name }}</h3>
-              <p class="text-sm" [ngClass]="selectedBoard === board.id ? 'text-white/80' : 'text-gray-600'">{{ board.description }}</p>
             </button>
+            <p *ngIf="noBoards" class="text-center text-gray-600">No boards found.</p>
           </div>
         </div>
       </ng-container>
@@ -35,13 +35,14 @@
               Class {{ c }}
             </button>
           </div>
+          <p *ngIf="noClasses" class="text-center text-gray-600 mt-4">No classes found.</p>
         </div>
       </ng-template>
     </div>
   </div>
 
   <div class="p-6">
-    <button *ngIf="step === 1" (click)="step = 2" [disabled]="!selectedBoard" class="w-full h-14 text-lg font-semibold bg-primary hover:bg-primary/90 text-white rounded-xl card-shadow hover:card-shadow-hover tap-highlight disabled:opacity-50 disabled:cursor-not-allowed">Continue</button>
+    <button *ngIf="step === 1" (click)="nextStep()" [disabled]="!selectedBoard" class="w-full h-14 text-lg font-semibold bg-primary hover:bg-primary/90 text-white rounded-xl card-shadow hover:card-shadow-hover tap-highlight disabled:opacity-50 disabled:cursor-not-allowed">Continue</button>
     <button *ngIf="step === 2" (click)="startLearning()" [disabled]="!selectedClass" class="w-full h-14 flex items-center justify-center text-lg font-semibold bg-primary hover:bg-primary/90 text-white rounded-xl card-shadow hover:card-shadow-hover tap-highlight disabled:opacity-50 disabled:cursor-not-allowed">Start Learning</button>
   </div>
 </div>

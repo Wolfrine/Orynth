@@ -15,6 +15,7 @@ import { AppStateService } from '../../services/app-state.service';
 export class SubjectListPageComponent implements OnInit {
 
   subjects: any[] = [];
+  noData = false;
 
   constructor(private syllabusService: SyllabusService, private appState: AppStateService, private router: Router) {}
 
@@ -24,7 +25,10 @@ export class SubjectListPageComponent implements OnInit {
       const standard = this.appState.getStandard();
       if (data && data[board] && data[board][standard]) {
         this.subjects = Object.keys(data[board][standard]).map(key => ({ id: key, name: key, progress: 0 }));
+      } else {
+        this.subjects = [];
       }
+      this.noData = this.subjects.length === 0;
     });
   }
 
