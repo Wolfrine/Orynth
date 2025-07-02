@@ -24,7 +24,20 @@ export class SubjectListPageComponent implements OnInit {
       const board = this.appState.getBoard();
       const standard = this.appState.getStandard();
       if (data && data[board] && data[board][standard]) {
-        this.subjects = Object.keys(data[board][standard]).map(key => ({ id: key, name: key, progress: 0 }));
+        this.subjects = Object.keys(data[board][standard]).map(key => {
+          const saved = localStorage.getItem(`${key}-progress`);
+          let progress = 0;
+          if (saved) {
+            try {
+              const chapters = JSON.parse(saved);
+              if (chapters.length) {
+                const completed = chapters.filter((c: any) => c.status === 'done').length;
+                progress = Math.round((completed / chapters.length) * 100);
+              }
+            } catch {}
+          }
+          return { id: key, name: key, progress };
+        });
       } else {
         this.subjects = [];
       }

@@ -38,8 +38,39 @@ export class ChapterTrackerPageComponent implements OnInit {
       } else {
         this.chapters = [];
       }
+
+      const saved = localStorage.getItem(`${subject}-progress`);
+      if (saved) {
+        try {
+          const savedChapters = JSON.parse(saved);
+          this.chapters = this.chapters.map(c => {
+            const match = savedChapters.find((s: any) => s.id === c.id && s.name === c.name);
+            return match ? { ...c, status: match.status, confidence: match.confidence } : c;
+          });
+        } catch {}
+      }
+
       this.noData = this.chapters.length === 0;
     });
+  }
+
+  cycleStatus(chapter: any) {
+    const cycle = ['pending', 'in-progress', 'done'];
+    const idx = cycle.indexOf(chapter.status);
+    chapter.status = cycle[(idx + 1) % cycle.length];
+    this.saveProgress();
+  }
+
+  saveProgress() {
+    localStorage.setItem(`${this.subject}-progress`, JSON.stringify(this.chapters));
+  }
+
+  getStatusLabel(status: string): string {
+    switch (status) {
+      case 'done': return 'Completed';
+      case 'in-progress': return 'In Progress';
+      default: return 'Pending';
+    }
   }
 
   get completedCount(): number {
