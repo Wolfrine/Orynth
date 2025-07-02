@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { RouterModule, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { CardComponent } from '../../components/card/card';
 import { ProgressBarComponent } from '../../components/progress-bar/progress-bar';
+import { SyllabusService } from '../../services/syllabus.service';
+import { AppStateService } from '../../services/app-state.service';
 
 @Component({
   selector: 'app-subject-list-page',
@@ -10,11 +12,24 @@ import { ProgressBarComponent } from '../../components/progress-bar/progress-bar
   templateUrl: './subject-list-page.html',
   styleUrl: './subject-list-page.scss'
 })
-export class SubjectListPageComponent {
+export class SubjectListPageComponent implements OnInit {
 
-  subjects = [
-    { id: 1, name: 'Math', progress: 68 },
-    { id: 2, name: 'Science', progress: 45 },
-    { id: 3, name: 'History', progress: 20 }
-  ];
+  subjects: any[] = [];
+
+  constructor(private syllabusService: SyllabusService, private appState: AppStateService, private router: Router) {}
+
+  ngOnInit(): void {
+    this.syllabusService.getSyllabusTree().subscribe(data => {
+      const board = this.appState.getBoard();
+      const standard = this.appState.getStandard();
+      if (data && data[board] && data[board][standard]) {
+        this.subjects = Object.keys(data[board][standard]).map(key => ({ id: key, name: key, progress: 0 }));
+      }
+    });
+  }
+
+  openSubject(name: string) {
+    this.appState.setSubject(name);
+    this.router.navigate(['/chapter-tracker']);
+  }
 }
