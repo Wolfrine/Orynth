@@ -14,6 +14,7 @@ import { SyllabusService } from '../../services/syllabus.service';
 export class ChapterTrackerPageComponent implements OnInit {
   chapters: any[] = [];
   subject = '';
+  noData = false;
   constructor(private appState: AppStateService, private syllabusService: SyllabusService) {
     this.subject = this.appState.getSubject();
   }
@@ -24,8 +25,20 @@ export class ChapterTrackerPageComponent implements OnInit {
       const standard = this.appState.getStandard();
       const subject = this.appState.getSubject();
       if (data && data[board] && data[board][standard] && data[board][standard][subject]) {
-        this.chapters = data[board][standard][subject];
+        const chaptersData = data[board][standard][subject];
+        if (Array.isArray(chaptersData)) {
+          if (chaptersData.length > 0 && typeof chaptersData[0] === 'string') {
+            this.chapters = chaptersData.map((name: string, i: number) => ({ id: i, name, status: 'pending', confidence: 0 }));
+          } else {
+            this.chapters = chaptersData;
+          }
+        } else {
+          this.chapters = [];
+        }
+      } else {
+        this.chapters = [];
       }
+      this.noData = this.chapters.length === 0;
     });
   }
 
