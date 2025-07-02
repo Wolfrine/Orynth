@@ -1,14 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterModule, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { CardComponent } from '../../components/card/card';
-import { ProgressBarComponent } from '../../components/progress-bar/progress-bar';
 import { SyllabusService } from '../../services/syllabus.service';
 import { AppStateService } from '../../services/app-state.service';
 
 @Component({
   selector: 'app-subject-list-page',
-  imports: [CommonModule, RouterModule, CardComponent, ProgressBarComponent],
+  imports: [CommonModule, RouterModule],
   templateUrl: './subject-list-page.html',
   styleUrl: './subject-list-page.scss'
 })
@@ -16,6 +14,8 @@ export class SubjectListPageComponent implements OnInit {
 
   subjects: any[] = [];
   noData = false;
+  startedCount = 0;
+  overallProgress = 0;
 
   constructor(private syllabusService: SyllabusService, private appState: AppStateService, private router: Router) {}
 
@@ -42,6 +42,10 @@ export class SubjectListPageComponent implements OnInit {
         this.subjects = [];
       }
       this.noData = this.subjects.length === 0;
+      this.startedCount = this.subjects.filter(s => s.progress > 0).length;
+      this.overallProgress = this.subjects.length === 0
+        ? 0
+        : Math.round(this.subjects.reduce((acc, cur) => acc + cur.progress, 0) / this.subjects.length);
     });
   }
 
