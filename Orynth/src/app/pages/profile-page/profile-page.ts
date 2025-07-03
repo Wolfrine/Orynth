@@ -20,6 +20,8 @@ export class ProfilePageComponent implements OnInit {
   classes: string[] = [];
   selectedBoard = '';
   selectedClass = '';
+  school = '';
+  birthDate = '';
   private syllabus: any = {};
 
   constructor(
@@ -45,6 +47,8 @@ export class ProfilePageComponent implements OnInit {
     this.selectedBoard = profile.board || this.appState.getBoard();
     this.updateClasses();
     this.selectedClass = profile.standard || this.appState.getStandard();
+    this.school = profile.school || '';
+    this.birthDate = profile.birthDate || '';
   }
 
   updateClasses() {
@@ -55,6 +59,11 @@ export class ProfilePageComponent implements OnInit {
     this.appState.setBoard(this.selectedBoard);
     this.appState.setStandard(this.selectedClass);
     const profileRef = doc(this.firestore, `Users/${this.uid}/profile`);
-    await setDoc(profileRef, { board: this.selectedBoard, standard: this.selectedClass }, { merge: true });
+    await setDoc(profileRef, {
+      board: this.selectedBoard,
+      standard: this.selectedClass,
+      school: this.school,
+      birthDate: this.birthDate
+    }, { merge: true });
   }
 }
