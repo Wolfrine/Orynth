@@ -3,11 +3,10 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import { AppStateService } from '../../services/app-state.service';
 import { SyllabusService } from '../../services/syllabus.service';
-import { UnsyncedNoticeComponent } from '../../components/unsynced-notice/unsynced-notice';
 
 @Component({
   selector: 'app-board-class-selection-page',
-  imports: [CommonModule, RouterModule, UnsyncedNoticeComponent],
+  imports: [CommonModule, RouterModule],
   templateUrl: './board-class-selection-page.html'
 })
 export class BoardClassSelectionPageComponent implements OnInit {

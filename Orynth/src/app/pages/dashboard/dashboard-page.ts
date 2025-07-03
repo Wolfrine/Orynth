@@ -3,7 +3,6 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { SubjectProgressRingComponent } from '../../components/subject-progress-ring/subject-progress-ring';
 import { ButtonComponent } from '../../components/button/button';
-import { UnsyncedNoticeComponent } from '../../components/unsynced-notice/unsynced-notice';
 import { BottomNavComponent } from '../../components/bottom-nav/bottom-nav';
 import { AppStateService } from '../../services/app-state.service';
 import { SyllabusService } from '../../services/syllabus.service';
@@ -15,7 +14,6 @@ import { SyllabusService } from '../../services/syllabus.service';
     RouterModule,
     SubjectProgressRingComponent,
     ButtonComponent,
-    UnsyncedNoticeComponent,
     BottomNavComponent
   ],
   templateUrl: './dashboard-page.html',
