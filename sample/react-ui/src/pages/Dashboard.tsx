@@ -1,6 +1,6 @@
 
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft, TrendingUp, Award, AlertCircle, Wifi } from "lucide-react";
+import { ArrowLeft, TrendingUp, Award, AlertCircle, Wifi, Home, BarChart3, User } from "lucide-react";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -24,7 +24,7 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-green-50">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-green-50 pb-20">
       {/* Header */}
       <div className="bg-white/90 backdrop-blur-sm sticky top-0 z-10">
         <div className="flex items-center justify-between p-4">
@@ -137,15 +137,35 @@ const Dashboard = () => {
             </div>
           </div>
 
-          {/* Back to Subjects Button */}
-          <div className="mt-8 animate-fade-in" style={{ animationDelay: '0.4s' }}>
-            <button
-              onClick={() => navigate("/subjects")}
-              className="w-full h-12 bg-primary hover:bg-primary/90 text-white font-semibold rounded-xl card-shadow hover:card-shadow-hover tap-highlight transition-all"
-            >
-              Back to Subjects
-            </button>
-          </div>
+        </div>
+      </div>
+
+      {/* Fixed Bottom Navigation */}
+      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-6 py-3 z-50">
+        <div className="flex justify-around items-center max-w-sm mx-auto">
+          <button
+            onClick={() => navigate("/")}
+            className="flex flex-col items-center space-y-1 tap-highlight"
+          >
+            <Home className="w-6 h-6 text-gray-600" />
+            <span className="text-xs text-gray-600">Home</span>
+          </button>
+          <button className="flex flex-col items-center space-y-1 tap-highlight">
+            <BarChart3 className="w-6 h-6 text-primary" />
+            <span className="text-xs text-primary">Dashboard</span>
+          </button>
+          <button
+            onClick={() => navigate("/profile")}
+            className="flex flex-col items-center space-y-1 tap-highlight"
+          >
+            <User className="w-6 h-6 text-gray-600" />
+            <span className="text-xs text-gray-600">Profile</span>
+          </button>
+        </div>
+        
+        {/* Powered by Growth Tutorials */}
+        <div className="text-center pt-2 border-t border-gray-100 mt-3">
+          <p className="text-xs text-gray-500">Powered by Growth Tutorials</p>
         </div>
       </div>
     </div>

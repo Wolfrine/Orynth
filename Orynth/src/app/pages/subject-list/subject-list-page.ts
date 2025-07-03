@@ -4,10 +4,11 @@ import { CommonModule } from '@angular/common';
 import { SyllabusService } from '../../services/syllabus.service';
 import { AppStateService } from '../../services/app-state.service';
 import { UnsyncedNoticeComponent } from '../../components/unsynced-notice/unsynced-notice';
+import { BottomNavComponent } from '../../components/bottom-nav/bottom-nav';
 
 @Component({
   selector: 'app-subject-list-page',
-  imports: [CommonModule, RouterModule, UnsyncedNoticeComponent],
+  imports: [CommonModule, RouterModule, UnsyncedNoticeComponent, BottomNavComponent],
   templateUrl: './subject-list-page.html',
   styleUrl: './subject-list-page.scss'
 })
