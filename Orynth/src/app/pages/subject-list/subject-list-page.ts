@@ -3,10 +3,11 @@ import { RouterModule, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { SyllabusService } from '../../services/syllabus.service';
 import { AppStateService } from '../../services/app-state.service';
+import { UnsyncedNoticeComponent } from '../../components/unsynced-notice/unsynced-notice';
 
 @Component({
   selector: 'app-subject-list-page',
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, UnsyncedNoticeComponent],
   templateUrl: './subject-list-page.html',
   styleUrl: './subject-list-page.scss'
 })

@@ -4,10 +4,11 @@ import { CommonModule } from '@angular/common';
 import { ChipComponent } from '../../components/chip/chip';
 import { AppStateService } from '../../services/app-state.service';
 import { SyllabusService } from '../../services/syllabus.service';
+import { UnsyncedNoticeComponent } from '../../components/unsynced-notice/unsynced-notice';
 
 @Component({
   selector: 'app-chapter-tracker-page',
-  imports: [CommonModule, RouterModule, ChipComponent],
+  imports: [CommonModule, RouterModule, ChipComponent, UnsyncedNoticeComponent],
   templateUrl: './chapter-tracker-page.html',
   styleUrl: './chapter-tracker-page.scss'
 })
