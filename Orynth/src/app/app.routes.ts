@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { ProfilePageComponent } from './pages/profile-page/profile-page';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'onboarding', pathMatch: 'full' },
@@ -21,5 +22,10 @@ export const routes: Routes = [
   {
     path: 'dashboard',
     loadComponent: () => import('./pages/dashboard/dashboard-page').then(m => m.DashboardPageComponent)
+  },
+  {
+    path: 'profile',
+    component: ProfilePageComponent,
+    title: 'Profile'
   },
 ];

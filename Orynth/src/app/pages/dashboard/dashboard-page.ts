@@ -3,12 +3,13 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { SubjectProgressRingComponent } from '../../components/subject-progress-ring/subject-progress-ring';
 import { ButtonComponent } from '../../components/button/button';
+import { UnsyncedNoticeComponent } from '../../components/unsynced-notice/unsynced-notice';
 import { AppStateService } from '../../services/app-state.service';
 import { SyllabusService } from '../../services/syllabus.service';
 
 @Component({
   selector: 'app-dashboard-page',
-  imports: [CommonModule, RouterModule, SubjectProgressRingComponent, ButtonComponent],
+  imports: [CommonModule, RouterModule, SubjectProgressRingComponent, ButtonComponent, UnsyncedNoticeComponent],
   templateUrl: './dashboard-page.html',
   styleUrl: './dashboard-page.scss'
 })

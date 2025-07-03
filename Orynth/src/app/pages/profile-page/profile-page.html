@@ -1,0 +1,23 @@
+<div class="min-h-screen bg-gradient-to-br from-blue-50 to-green-50 p-6">
+  <h1 class="text-xl font-semibold mb-4">Profile</h1>
+  <p class="mb-4 text-sm text-gray-700">UID: {{ uid }}</p>
+
+  <div class="mb-4">
+    <label class="block mb-1 text-sm font-medium">Board</label>
+    <select [(ngModel)]="selectedBoard" (change)="updateClasses()" class="w-full p-2 rounded border">
+      <option *ngFor="let b of boards" [value]="b.id">{{ b.name }}</option>
+    </select>
+  </div>
+  <div class="mb-4">
+    <label class="block mb-1 text-sm font-medium">Standard</label>
+    <select [(ngModel)]="selectedClass" class="w-full p-2 rounded border">
+      <option *ngFor="let c of classes" [value]="c">Class {{ c }}</option>
+    </select>
+  </div>
+
+  <button (click)="save()" class="w-full h-12 bg-primary hover:bg-primary/90 text-white rounded-xl card-shadow mb-4">Save</button>
+
+  <div class="text-center" hidden>
+    <button class="w-full h-12 bg-gray-300 text-gray-500 rounded-xl" disabled>Upgrade Account</button>
+  </div>
+</div>
