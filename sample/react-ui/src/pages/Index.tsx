@@ -66,6 +66,11 @@ const Index = () => {
               Start Tracking
             </Button>
           </div>
+
+          {/* Powered by Growth Tutorials */}
+          <div className="mt-8 text-center animate-fade-in" style={{ animationDelay: '0.8s' }}>
+            <p className="text-xs text-gray-500">Powered by Growth Tutorials</p>
+          </div>
         </div>
       </div>
 

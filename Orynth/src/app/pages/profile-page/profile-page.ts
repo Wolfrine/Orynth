@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { BottomNavComponent } from '../../components/bottom-nav/bottom-nav';
 import { Firestore, doc, getDoc, setDoc } from '@angular/fire/firestore';
 import { AuthService } from '../../services/auth.service';
 import { AppStateService } from '../../services/app-state.service';
@@ -9,7 +10,7 @@ import { SyllabusService } from '../../services/syllabus.service';
 @Component({
   selector: 'app-profile-page',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, BottomNavComponent],
   templateUrl: './profile-page.html',
   styleUrl: './profile-page.scss'
 })

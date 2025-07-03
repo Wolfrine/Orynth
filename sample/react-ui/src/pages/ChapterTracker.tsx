@@ -1,7 +1,6 @@
-
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Home, BarChart3, User } from "lucide-react";
 
 type Status = "pending" | "in-progress" | "done";
 type Confidence = "low" | "medium" | "high";
@@ -77,7 +76,7 @@ const ChapterTracker = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-green-50">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-green-50 pb-20">
       {/* Sticky Header */}
       <div className="bg-white/90 backdrop-blur-sm sticky top-0 z-10 border-b border-gray-200">
         <div className="flex items-center justify-between p-4">
@@ -159,10 +158,42 @@ const ChapterTracker = () => {
 
           {/* Help Text */}
           <div className="mt-8 text-center animate-fade-in" style={{ animationDelay: '0.4s' }}>
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-gray-600 mb-4">
               Tap on status and confidence chips to update your progress
             </p>
           </div>
+        </div>
+      </div>
+
+      {/* Fixed Bottom Navigation */}
+      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-6 py-3 z-50">
+        <div className="flex justify-around items-center max-w-sm mx-auto">
+          <button
+            onClick={() => navigate("/")}
+            className="flex flex-col items-center space-y-1 tap-highlight"
+          >
+            <Home className="w-6 h-6 text-gray-600" />
+            <span className="text-xs text-gray-600">Home</span>
+          </button>
+          <button
+            onClick={() => navigate("/dashboard")}
+            className="flex flex-col items-center space-y-1 tap-highlight"
+          >
+            <BarChart3 className="w-6 h-6 text-gray-600" />
+            <span className="text-xs text-gray-600">Dashboard</span>
+          </button>
+          <button
+            onClick={() => navigate("/profile")}
+            className="flex flex-col items-center space-y-1 tap-highlight"
+          >
+            <User className="w-6 h-6 text-gray-600" />
+            <span className="text-xs text-gray-600">Profile</span>
+          </button>
+        </div>
+        
+        {/* Powered by Growth Tutorials */}
+        <div className="text-center pt-2 border-t border-gray-100 mt-3">
+          <p className="text-xs text-gray-500">Powered by Growth Tutorials</p>
         </div>
       </div>
     </div>

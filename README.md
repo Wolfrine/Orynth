@@ -19,6 +19,31 @@ npm ci
 
 This installs `@angular/cli` locally so the `ng` command is available.
 
+## Sample React UI
+
+A React implementation of the same flows lives under `sample/react-ui`. The
+folder was cloned from the public
+[learn-spark-mobile-flow](https://github.com/Wolfrine/learn-spark-mobile-flow)
+repository. The `.git` directory was removed so it can be tracked as part of
+this repository.
+
+The React app mirrors the Angular features but stores data locally instead of
+using Firebase. You can run it with:
+
+```bash
+cd sample/react-ui
+npm install
+npm run dev
+```
+
+### Differences from the Angular UI
+
+- **Board and Class** – In React, the selection persists to `localStorage`.
+  The Angular version saves this information in Firestore when editing your
+  profile.
+- **Profile Page** – The React profile page reads and writes all details from
+  `localStorage`, whereas the Angular page syncs them with Firestore.
+
 ## Feature Audit: Phase 1
 
 - **Landing / Onboarding – 🟡 Partial**
