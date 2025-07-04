@@ -32,7 +32,12 @@ export class ProfilePageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.uid = this.auth.getCurrentUserId();
+    this.init();
+  }
+
+  private async init() {
+    const user = await this.auth.signInAnonymouslyIfNeeded();
+    this.uid = user.uid;
     this.syllabusService.getSyllabusTree().subscribe(async data => {
       this.syllabus = data || {};
       this.boards = Object.keys(this.syllabus).map(id => ({ id, name: id }));
