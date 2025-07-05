@@ -12,12 +12,17 @@ export class AuthService {
     this.authState$ = authState(this.auth);
   }
 
-  async signInAnonymouslyIfNeeded(): Promise<User> {
+  async signInAnonymouslyIfNeeded(): Promise<User | null> {
     if (this.auth.currentUser) {
       return this.auth.currentUser;
     }
-    const cred = await signInAnonymously(this.auth);
-    return cred.user;
+    try {
+      const cred = await signInAnonymously(this.auth);
+      return cred.user;
+    } catch (error) {
+      console.error('Anonymous sign-in failed', error);
+      return this.auth.currentUser ?? null;
+    }
   }
 
   getCurrentUserId(): string {

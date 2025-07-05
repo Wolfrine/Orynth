@@ -20,6 +20,9 @@ export class OnboardingPageComponent implements OnInit {
 
   async ngOnInit() {
     const user = await this.auth.signInAnonymouslyIfNeeded();
+    if (!user) {
+      return;
+    }
     const profileRef = doc(this.firestore, `Users/${user.uid}/profile`);
     const snap = await getDoc(profileRef);
     if (snap.exists()) {
@@ -35,6 +38,8 @@ export class OnboardingPageComponent implements OnInit {
 
   async startTracking() {
     const user = await this.auth.signInAnonymouslyIfNeeded();
-    console.log('Auth UID:', user.uid);
+    if (user) {
+      console.log('Auth UID:', user.uid);
+    }
   }
 }
