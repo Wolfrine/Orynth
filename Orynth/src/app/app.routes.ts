@@ -28,6 +28,10 @@ export const routes: Routes = [
     title: 'Profile'
   },
   {
+    path: 'login',
+    loadComponent: () => import('./pages/login/login-page').then(m => m.LoginPageComponent)
+  },
+  {
     path: 'firebase-test',
     loadComponent: () => import('./components/firebase-test/firebase-test.component').then(m => m.FirebaseTestComponent)
   },

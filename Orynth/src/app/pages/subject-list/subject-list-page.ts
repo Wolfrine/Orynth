@@ -3,6 +3,7 @@ import { RouterModule, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { SyllabusService } from '../../services/syllabus.service';
 import { AppStateService } from '../../services/app-state.service';
+import { AuthService } from '../../services/auth.service';
 import { UnsyncedNoticeComponent } from '../../components/unsynced-notice/unsynced-notice';
 import { BottomNavComponent } from '../../components/bottom-nav/bottom-nav';
 
@@ -20,7 +21,12 @@ export class SubjectListPageComponent implements OnInit {
   startedCount = 0;
   overallProgress = 0;
 
-  constructor(private syllabusService: SyllabusService, private appState: AppStateService, private router: Router) {}
+  constructor(
+    private syllabusService: SyllabusService,
+    private appState: AppStateService,
+    private router: Router,
+    public auth: AuthService
+  ) {}
 
   ngOnInit(): void {
     this.syllabusService.getSyllabusTree().subscribe(data => {

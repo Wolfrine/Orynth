@@ -8,6 +8,15 @@ npm run build
 If the build fails, fix the issue before committing.
 Report the result of the build in the Testing section of your pull request message.
 
+## Screen Flow
+
+1. Onboarding – onboarding
+2. Board & Class Selection – board-class-selection
+3. Subject Selection / Home – subject-list
+4. Chapter Tracker (Chapter List + Confidence) – chapter-tracker
+5. Dashboard – dashboard
+6. Profile – profile-page
+
 ## Codex Audit Log
 
 Phase 1 Feature Status:

@@ -5,6 +5,7 @@ import { ChipComponent } from '../../components/chip/chip';
 import { AppStateService } from '../../services/app-state.service';
 import { SyllabusService } from '../../services/syllabus.service';
 import { BottomNavComponent } from '../../components/bottom-nav/bottom-nav';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-chapter-tracker-page',
@@ -22,7 +23,11 @@ export class ChapterTrackerPageComponent implements OnInit {
   chapters: any[] = [];
   subject = '';
   noData = false;
-  constructor(private appState: AppStateService, private syllabusService: SyllabusService) {
+  constructor(
+    private appState: AppStateService,
+    private syllabusService: SyllabusService,
+    public auth: AuthService
+  ) {
     this.subject = this.appState.getSubject();
   }
 

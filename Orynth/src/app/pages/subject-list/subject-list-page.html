@@ -7,7 +7,7 @@
         </svg>
       </a>
       <h1 class="text-lg font-semibold text-gray-900">My Subjects</h1>
-      <a routerLink="/dashboard" class="text-sm font-medium text-primary tap-highlight">Dashboard</a>
+      <a *ngIf="(auth.authState$ | async)?.isAnonymous" routerLink="/login" class="text-sm font-medium text-primary tap-highlight">Login</a>
     </div>
   </div>
 
