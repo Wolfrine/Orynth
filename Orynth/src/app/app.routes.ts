@@ -27,4 +27,8 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/profile-page/profile-page').then(m => m.ProfilePageComponent),
     title: 'Profile'
   },
+  {
+    path: 'firebase-test',
+    loadComponent: () => import('./components/firebase-test/firebase-test.component').then(m => m.FirebaseTestComponent)
+  },
 ];
