@@ -28,7 +28,7 @@ export const appConfig: ApplicationConfig = {
     }),
     provideFirestore(() => {
       const firestore = getFirestore();
-      enableIndexedDbPersistence(firestore).catch(() => {});
+      //enableIndexedDbPersistence(firestore).catch(() => {});
       return firestore;
     })
   ]
