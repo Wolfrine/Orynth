@@ -4,9 +4,10 @@ import { provideServiceWorker } from '@angular/service-worker';
 import { provideRouter } from '@angular/router';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { provideAuth, getAuth } from '@angular/fire/auth';
-import { provideFirestore, getFirestore } from '@angular/fire/firestore';
+import { provideFirestore } from '@angular/fire/firestore';
 import { setPersistence, browserLocalPersistence } from 'firebase/auth';
-import { enableIndexedDbPersistence } from 'firebase/firestore';
+import { initializeFirestore, persistentLocalCache, persistentMultipleTabManager } from 'firebase/firestore';
+import { getApp } from 'firebase/app';
 import { environment } from '../environments/environment';
 
 import { routes } from './app.routes';
@@ -26,10 +27,10 @@ export const appConfig: ApplicationConfig = {
       setPersistence(auth, browserLocalPersistence);
       return auth;
     }),
-    provideFirestore(() => {
-      const firestore = getFirestore();
-      //enableIndexedDbPersistence(firestore).catch(() => {});
-      return firestore;
-    })
+    provideFirestore(() =>
+      initializeFirestore(getApp(), {
+        localCache: persistentLocalCache({ tabManager: persistentMultipleTabManager() })
+      })
+    )
   ]
 };
