@@ -11,8 +11,7 @@ import { environment } from '../environments/environment';
 
 import { routes } from './app.routes';
 
-const firestore = getFirestore();
-enableIndexedDbPersistence(firestore).catch(() => {});
+
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -27,6 +26,10 @@ export const appConfig: ApplicationConfig = {
       setPersistence(auth, browserLocalPersistence);
       return auth;
     }),
-    provideFirestore(() => firestore)
+    provideFirestore(() => {
+      const firestore = getFirestore();
+      enableIndexedDbPersistence(firestore).catch(() => {});
+      return firestore;
+    })
   ]
 };
