@@ -21,19 +21,24 @@ export class OnboardingPageComponent implements OnInit {
   async ngOnInit() {
     const user = await this.auth.signInAnonymouslyIfNeeded();
     if (!user) {
+      await this.router.navigate(['/board-class-selection']);
       return;
     }
+
     const profileRef = doc(this.firestore, `Users/${user.uid}/profile`);
     const snap = await getDoc(profileRef);
+
     if (snap.exists()) {
       const profile = snap.data() as any;
       if (profile.board && profile.standard) {
         this.appState.setBoard(profile.board);
         this.appState.setStandard(profile.standard);
-        this.router.navigate(['/subject-list']);
+        await this.router.navigate(['/subject-list']);
         return;
       }
     }
+
+    await this.router.navigate(['/board-class-selection']);
   }
 
   async startTracking() {
