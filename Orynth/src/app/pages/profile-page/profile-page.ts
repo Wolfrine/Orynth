@@ -26,7 +26,7 @@ export class ProfilePageComponent implements OnInit {
 
   constructor(
     private firestore: Firestore,
-    private auth: AuthService,
+    public auth: AuthService,
     private appState: AppStateService,
     private syllabusService: SyllabusService
   ) {}

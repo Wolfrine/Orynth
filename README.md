@@ -1,6 +1,15 @@
 # Orynth
 Organic Rhythm for Growth - Your study tracker app
 
+## Screen Flow
+
+1. **Onboarding** – `/onboarding`
+2. **Board & Class Selection** – `/board-class-selection`
+3. **Subject Selection / Home** – `/subject-list`
+4. **Chapter Tracker** – `/chapter-tracker`
+5. **Dashboard** – `/dashboard`
+6. **Profile** – `/profile-page`
+
 ## Deployment
 
 This repository uses a GitHub Actions workflow to deploy the Angular project to Firebase Hosting. The project targets Angular CLI v20, which requires Node.js v20 or newer.

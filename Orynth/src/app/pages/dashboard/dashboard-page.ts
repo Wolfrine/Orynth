@@ -6,6 +6,7 @@ import { ButtonComponent } from '../../components/button/button';
 import { BottomNavComponent } from '../../components/bottom-nav/bottom-nav';
 import { AppStateService } from '../../services/app-state.service';
 import { SyllabusService } from '../../services/syllabus.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-dashboard-page',
@@ -40,7 +41,11 @@ export class DashboardPageComponent implements OnInit {
     'bg-teal-500'
   ];
 
-  constructor(private appState: AppStateService, private syllabusService: SyllabusService) {}
+  constructor(
+    private appState: AppStateService,
+    private syllabusService: SyllabusService,
+    public auth: AuthService
+  ) {}
 
   ngOnInit(): void {
     this.summary.subject = this.appState.getSubject();
