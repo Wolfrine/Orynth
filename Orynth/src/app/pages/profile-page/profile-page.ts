@@ -37,6 +37,9 @@ export class ProfilePageComponent implements OnInit {
 
   private async init() {
     const user = await this.auth.signInAnonymouslyIfNeeded();
+    if (!user) {
+      return;
+    }
     this.uid = user.uid;
     this.syllabusService.getSyllabusTree().subscribe(async data => {
       this.syllabus = data || {};
