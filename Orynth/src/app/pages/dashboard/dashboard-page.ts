@@ -9,6 +9,7 @@ import { SyllabusService } from '../../services/syllabus.service';
 
 @Component({
   selector: 'app-dashboard-page',
+  standalone: true,
   imports: [
     CommonModule,
     RouterModule,

@@ -8,6 +8,7 @@ import { BottomNavComponent } from '../../components/bottom-nav/bottom-nav';
 
 @Component({
   selector: 'app-subject-list-page',
+  standalone: true,
   imports: [CommonModule, RouterModule, UnsyncedNoticeComponent, BottomNavComponent],
   templateUrl: './subject-list-page.html',
   styleUrl: './subject-list-page.scss'

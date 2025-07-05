@@ -6,6 +6,7 @@ import { AppStateService } from '../../services/app-state.service';
 
 @Component({
   selector: 'app-onboarding-page',
+  standalone: true,
   imports: [RouterModule],
   templateUrl: './onboarding-page.html'
 })

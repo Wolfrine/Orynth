@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-chip',
+  standalone: true,
   imports: [CommonModule],
   templateUrl: './chip.html',
   styleUrl: './chip.scss'

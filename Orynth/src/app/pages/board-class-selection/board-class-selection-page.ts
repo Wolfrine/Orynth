@@ -6,6 +6,7 @@ import { SyllabusService } from '../../services/syllabus.service';
 
 @Component({
   selector: 'app-board-class-selection-page',
+  standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './board-class-selection-page.html'
 })

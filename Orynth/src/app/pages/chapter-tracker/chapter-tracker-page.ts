@@ -8,6 +8,7 @@ import { BottomNavComponent } from '../../components/bottom-nav/bottom-nav';
 
 @Component({
   selector: 'app-chapter-tracker-page',
+  standalone: true,
   imports: [
     CommonModule,
     RouterModule,
