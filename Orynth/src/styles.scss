@@ -54,4 +54,12 @@
   .card-shadow-hover {
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
   }
+  .page-wrapper {
+    padding-bottom: calc(80px + env(safe-area-inset-bottom));
+  }
+  @media (min-width: 768px) {
+    .page-wrapper {
+      padding-bottom: calc(96px + env(safe-area-inset-bottom));
+    }
+  }
 }
