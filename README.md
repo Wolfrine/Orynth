@@ -53,6 +53,22 @@ npm run dev
 - **Profile Page** – The React profile page reads and writes all details from
   `localStorage`, whereas the Angular page syncs them with Firestore.
 
+## Firestore Document Paths
+
+Always pass an **even number of path segments** to `doc()` so it points to a
+specific document. The top-level user document lives at `Users/{uid}` (two
+segments). Store all user information under that document:
+
+```text
+Users/{uid}
+  info: { displayName, email, photoURL }
+  profile: { board, standard, school, birthDate }
+  progress: { [subjectId]: ChapterProgress[] }
+```
+
+Avoid paths like `Users/{uid}/profile` which have an odd number of segments and
+result in an `Invalid document reference` error.
+
 ## Feature Audit: Phase 1
 
 - **Landing / Onboarding – 🟡 Partial**

@@ -49,9 +49,10 @@ export class ProfilePageComponent implements OnInit {
   }
 
   private async loadProfile() {
-    const profileRef = doc(this.firestore, `Users/${this.uid}/profile`);
+    const profileRef = doc(this.firestore, `Users/${this.uid}`);
     const snap = await getDoc(profileRef);
-    const profile = snap.exists() ? snap.data() as any : {};
+    const data = snap.exists() ? snap.data() as any : {};
+    const profile = data.profile || {};
     this.selectedBoard = profile.board || this.appState.getBoard();
     this.updateClasses();
     this.selectedClass = profile.standard || this.appState.getStandard();
@@ -66,12 +67,14 @@ export class ProfilePageComponent implements OnInit {
   async save() {
     this.appState.setBoard(this.selectedBoard);
     this.appState.setStandard(this.selectedClass);
-    const profileRef = doc(this.firestore, `Users/${this.uid}/profile`);
+    const profileRef = doc(this.firestore, `Users/${this.uid}`);
     await setDoc(profileRef, {
-      board: this.selectedBoard,
-      standard: this.selectedClass,
-      school: this.school,
-      birthDate: this.birthDate
+      profile: {
+        board: this.selectedBoard,
+        standard: this.selectedClass,
+        school: this.school,
+        birthDate: this.birthDate
+      }
     }, { merge: true });
   }
 }

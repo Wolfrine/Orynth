@@ -47,11 +47,13 @@ export class AuthService {
   }
 
   private async saveUserInfo(user: User) {
-    const ref = doc(this.firestore, `Users/${user.uid}/info`);
+    const ref = doc(this.firestore, `Users/${user.uid}`);
     await setDoc(ref, {
-      displayName: user.displayName ?? '',
-      email: user.email ?? '',
-      photoURL: user.photoURL ?? ''
+      info: {
+        displayName: user.displayName ?? '',
+        email: user.email ?? '',
+        photoURL: user.photoURL ?? ''
+      }
     }, { merge: true });
   }
 }
