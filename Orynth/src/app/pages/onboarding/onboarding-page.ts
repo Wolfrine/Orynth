@@ -26,11 +26,12 @@ export class OnboardingPageComponent implements OnInit {
       return;
     }
 
-    const profileRef = doc(this.firestore, `Users/${user.uid}/profile`);
+    const profileRef = doc(this.firestore, `Users/${user.uid}`);
     const snap = await getDoc(profileRef);
 
     if (snap.exists()) {
-      const profile = snap.data() as any;
+      const data = snap.data() as any;
+      const profile = data.profile || {};
       if (profile.board && profile.standard) {
         this.appState.setBoard(profile.board);
         this.appState.setStandard(profile.standard);
