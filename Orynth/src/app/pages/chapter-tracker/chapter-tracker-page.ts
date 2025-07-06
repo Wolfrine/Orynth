@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ChipComponent } from '../../components/chip/chip';
@@ -6,6 +6,8 @@ import { AppStateService } from '../../services/app-state.service';
 import { SyllabusService } from '../../services/syllabus.service';
 import { BottomNavComponent } from '../../components/bottom-nav/bottom-nav';
 import { AuthService } from '../../services/auth.service';
+import { ProgressService } from '../../services/progress/progress.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-chapter-tracker-page',
@@ -19,13 +21,15 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: './chapter-tracker-page.html',
   styleUrl: './chapter-tracker-page.scss'
 })
-export class ChapterTrackerPageComponent implements OnInit {
+export class ChapterTrackerPageComponent implements OnInit, OnDestroy {
   chapters: any[] = [];
   subject = '';
   noData = false;
+  private progressSub?: Subscription;
   constructor(
     private appState: AppStateService,
     private syllabusService: SyllabusService,
+    private progressService: ProgressService,
     public auth: AuthService
   ) {
     this.subject = this.appState.getSubject();
@@ -62,6 +66,16 @@ export class ChapterTrackerPageComponent implements OnInit {
         } catch {}
       }
 
+      this.progressSub = this.progressService.getProgress(subject).subscribe(remote => {
+        if (remote && Array.isArray(remote)) {
+          this.chapters = this.chapters.map(c => {
+            const match = remote.find((s: any) => s.id === c.id && s.name === c.name);
+            return match ? { ...c, status: match.status, confidence: match.confidence } : c;
+          });
+          localStorage.setItem(`${subject}-progress`, JSON.stringify(this.chapters));
+        }
+      });
+
       this.noData = this.chapters.length === 0;
     });
   }
@@ -75,6 +89,7 @@ export class ChapterTrackerPageComponent implements OnInit {
 
   saveProgress() {
     localStorage.setItem(`${this.subject}-progress`, JSON.stringify(this.chapters));
+    this.progressService.setProgress(this.subject, this.chapters);
   }
 
   getStatusLabel(status: string): string {
@@ -93,5 +108,9 @@ export class ChapterTrackerPageComponent implements OnInit {
     return this.chapters.length === 0
       ? 0
       : (this.completedCount / this.chapters.length) * 100;
+  }
+
+  ngOnDestroy(): void {
+    this.progressSub?.unsubscribe();
   }
 }

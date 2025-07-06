@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Auth, signInAnonymously, User, authState, linkWithPopup, GoogleAuthProvider, linkWithPhoneNumber } from '@angular/fire/auth';
 import { Observable } from 'rxjs';
+import { Firestore, doc, setDoc } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,7 @@ import { Observable } from 'rxjs';
 export class AuthService {
   authState$: Observable<User | null>;
 
-  constructor(private auth: Auth) {
+  constructor(private auth: Auth, private firestore: Firestore) {
     this.authState$ = authState(this.auth);
   }
 
@@ -33,13 +34,24 @@ export class AuthService {
     return !!this.auth.currentUser;
   }
 
-  upgradeWithGoogle() {
+  async upgradeWithGoogle() {
     if (!this.auth.currentUser) throw new Error('No current user');
-    return linkWithPopup(this.auth.currentUser, new GoogleAuthProvider());
+    const cred = await linkWithPopup(this.auth.currentUser, new GoogleAuthProvider());
+    await this.saveUserInfo(cred.user);
+    return cred;
   }
 
-  upgradeWithPhoneNumber(phoneNumber: string, appVerifier: any) {
+  async upgradeWithPhoneNumber(phoneNumber: string, appVerifier: any) {
     if (!this.auth.currentUser) throw new Error('No current user');
     return linkWithPhoneNumber(this.auth.currentUser, phoneNumber, appVerifier);
+  }
+
+  private async saveUserInfo(user: User) {
+    const ref = doc(this.firestore, `Users/${user.uid}/info`);
+    await setDoc(ref, {
+      displayName: user.displayName ?? '',
+      email: user.email ?? '',
+      photoURL: user.photoURL ?? ''
+    }, { merge: true });
   }
 }

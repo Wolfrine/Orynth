@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { SyllabusService } from '../../services/syllabus.service';
 import { AppStateService } from '../../services/app-state.service';
 import { AuthService } from '../../services/auth.service';
+import { ProgressService } from '../../services/progress/progress.service';
 import { UnsyncedNoticeComponent } from '../../components/unsynced-notice/unsynced-notice';
 import { BottomNavComponent } from '../../components/bottom-nav/bottom-nav';
 
@@ -25,7 +26,8 @@ export class SubjectListPageComponent implements OnInit {
     private syllabusService: SyllabusService,
     private appState: AppStateService,
     private router: Router,
-    public auth: AuthService
+    public auth: AuthService,
+    private progressService: ProgressService
   ) {}
 
   ngOnInit(): void {
@@ -45,7 +47,19 @@ export class SubjectListPageComponent implements OnInit {
               }
             } catch {}
           }
-          return { id: key, name: key, progress };
+          const subj = { id: key, name: key, progress };
+          this.progressService.getProgress(key).subscribe(remote => {
+            if (remote && Array.isArray(remote)) {
+              const completed = remote.filter((c: any) => c.status === 'done').length;
+              subj.progress = Math.round((completed / remote.length) * 100);
+              localStorage.setItem(`${key}-progress`, JSON.stringify(remote));
+              this.startedCount = this.subjects.filter(s => s.progress > 0).length;
+              this.overallProgress = this.subjects.length === 0
+                ? 0
+                : Math.round(this.subjects.reduce((acc, cur) => acc + cur.progress, 0) / this.subjects.length);
+            }
+          });
+          return subj;
         });
       } else {
         this.subjects = [];
