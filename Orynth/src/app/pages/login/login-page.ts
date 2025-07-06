@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -11,9 +11,10 @@ import { AuthService } from '../../services/auth.service';
   styleUrl: './login-page.scss'
 })
 export class LoginPageComponent {
-  constructor(private auth: AuthService) {}
+  constructor(private auth: AuthService, private router: Router) {}
 
   async loginWithGoogle() {
     await this.auth.upgradeWithGoogle();
+    await this.router.navigate(['/subject-list']);
   }
 }
