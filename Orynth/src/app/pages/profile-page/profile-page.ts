@@ -38,11 +38,11 @@ export class ProfilePageComponent implements OnInit {
   }
 
   private async init() {
-    const user = await this.auth.signInAnonymouslyIfNeeded();
-    if (!user) {
+    const uid = this.auth.getCurrentUserId();
+    if (!uid) {
       return;
     }
-    this.uid = user.uid;
+    this.uid = uid;
     this.syllabusService.getSyllabusTree().subscribe(async data => {
       this.syllabus = data || {};
       this.boards = Object.keys(this.syllabus).map(id => ({ id, name: id }));

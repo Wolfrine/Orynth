@@ -44,9 +44,6 @@ export class OnboardingPageComponent implements OnInit {
   }
 
   async startTracking() {
-    const user = await this.auth.signInAnonymouslyIfNeeded();
-    if (user) {
-      await this.router.navigate(['/board-class-selection']);
-    }
+    await this.router.navigate(['/board-class-selection']);
   }
 }

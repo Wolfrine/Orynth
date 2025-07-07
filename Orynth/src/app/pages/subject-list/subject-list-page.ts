@@ -33,10 +33,10 @@ export class SubjectListPageComponent implements OnInit {
   ) {}
 
   async ngOnInit(): Promise<void> {
-    const user = await this.auth.signInAnonymouslyIfNeeded();
+    const uid = this.auth.getCurrentUserId();
     if (!this.appState.getBoard() || !this.appState.getStandard()) {
-      if (user) {
-        const ref = doc(this.firestore, `Users/${user.uid}`);
+      if (uid) {
+        const ref = doc(this.firestore, `Users/${uid}`);
         const snap = await getDoc(ref);
         if (snap.exists()) {
           const data = snap.data() as any;
