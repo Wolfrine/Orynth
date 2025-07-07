@@ -32,6 +32,17 @@ export class AuthService {
     return !!this.auth.currentUser && this.auth.currentUser.isAnonymous;
   }
 
+  async loginWithGoogle() {
+    try {
+      const cred = await signInWithPopup(this.auth, new GoogleAuthProvider());
+      await this.saveUserInfo(cred.user);
+      return cred;
+    } catch (err) {
+      console.error('Google sign-in failed', err);
+      throw err;
+    }
+  }
+
   async upgradeWithGoogle() {
     const user = this.auth.currentUser;
     if (!user) throw new Error('No current user');
