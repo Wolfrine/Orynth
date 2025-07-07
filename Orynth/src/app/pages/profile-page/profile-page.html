@@ -21,14 +21,14 @@
         <div class="space-y-4">
           <div>
             <label class="text-sm font-medium text-gray-900">Board</label>
-            <select [(ngModel)]="selectedBoard" (change)="updateClasses()" class="w-full h-12 bg-gray-50 rounded-xl border-gray-200 mt-1">
+            <select [(ngModel)]="selectedBoard" (change)="updateClasses(); save()" class="w-full h-12 bg-gray-50 rounded-xl border-gray-200 mt-1">
               <option value="" disabled>Choose your board</option>
               <option *ngFor="let b of boards" [value]="b.id">{{ b.name }}</option>
             </select>
           </div>
           <div>
             <label class="text-sm font-medium text-gray-900">Standard</label>
-            <select [(ngModel)]="selectedClass" class="w-full h-12 bg-gray-50 rounded-xl border-gray-200 mt-1">
+            <select [(ngModel)]="selectedClass" (change)="save()" class="w-full h-12 bg-gray-50 rounded-xl border-gray-200 mt-1">
               <option value="" disabled>Choose your class</option>
               <option *ngFor="let c of classes" [value]="c">Class {{ c }}</option>
             </select>

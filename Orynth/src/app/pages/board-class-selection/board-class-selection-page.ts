@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import { AppStateService } from '../../services/app-state.service';
 import { SyllabusService } from '../../services/syllabus.service';
+import { AuthService } from '../../services/auth.service';
+import { Firestore, doc, setDoc } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-board-class-selection-page',
@@ -23,7 +25,9 @@ export class BoardClassSelectionPageComponent implements OnInit {
   constructor(
     private router: Router,
     private appState: AppStateService,
-    private syllabusService: SyllabusService
+    private syllabusService: SyllabusService,
+    private auth: AuthService,
+    private firestore: Firestore
   ) {}
 
   ngOnInit(): void {
@@ -40,9 +44,25 @@ export class BoardClassSelectionPageComponent implements OnInit {
     this.noClasses = this.classes.length === 0;
   }
 
-  startLearning() {
+  async startLearning() {
     this.appState.setBoard(this.selectedBoard);
     this.appState.setStandard(this.selectedClass);
+
+    if (this.auth.isLoggedIn()) {
+      const uid = this.auth.getCurrentUserId();
+      const subjects = Object.keys(this.syllabus[this.selectedBoard]?.[this.selectedClass] || {});
+      const progress: any = {};
+      subjects.forEach(s => progress[s] = {});
+      const ref = doc(this.firestore, `Users/${uid}`);
+      await setDoc(ref, {
+        progress: {
+          [this.selectedBoard]: {
+            [this.selectedClass]: progress
+          }
+        }
+      }, { merge: true });
+    }
+
     this.router.navigate(['/subject-list']);
   }
 
