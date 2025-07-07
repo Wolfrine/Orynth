@@ -3,9 +3,9 @@ import { provideHttpClient } from '@angular/common/http';
 import { provideServiceWorker } from '@angular/service-worker';
 import { provideRouter } from '@angular/router';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
-import { provideAuth, getAuth } from '@angular/fire/auth';
+import { provideAuth } from '@angular/fire/auth';
 import { provideFirestore } from '@angular/fire/firestore';
-import { setPersistence, browserLocalPersistence } from 'firebase/auth';
+import { initializeAuth, indexedDBLocalPersistence } from 'firebase/auth';
 import {
   initializeFirestore,
   persistentLocalCache,
@@ -57,9 +57,10 @@ export const appConfig: ApplicationConfig = {
     provideServiceWorker('ngsw-worker.js', { enabled: environment.production }),
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => {
-      const auth = getAuth();
-      setPersistence(auth, browserLocalPersistence);
-      return auth;
+      const app = getApp();
+      return initializeAuth(app, {
+        persistence: indexedDBLocalPersistence
+      });
     }),
     provideFirestore(() => firestoreFactory())
   ]
