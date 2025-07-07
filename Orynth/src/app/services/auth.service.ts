@@ -39,9 +39,10 @@ export class AuthService {
   }
 
   async upgradeWithGoogle() {
-    if (!this.auth.currentUser) throw new Error('No current user');
+    const user = await this.signInAnonymouslyIfNeeded();
+    if (!user) throw new Error('No current user');
     try {
-      const cred = await linkWithPopup(this.auth.currentUser, new GoogleAuthProvider());
+      const cred = await linkWithPopup(user, new GoogleAuthProvider());
       await this.saveUserInfo(cred.user);
       return cred;
     } catch (err: any) {
