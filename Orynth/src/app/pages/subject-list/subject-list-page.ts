@@ -5,6 +5,7 @@ import { SyllabusService } from '../../services/syllabus.service';
 import { AppStateService } from '../../services/app-state.service';
 import { AuthService } from '../../services/auth.service';
 import { ProgressService } from '../../services/progress/progress.service';
+import { Firestore, doc, getDoc } from '@angular/fire/firestore';
 import { UnsyncedNoticeComponent } from '../../components/unsynced-notice/unsynced-notice';
 import { BottomNavComponent } from '../../components/bottom-nav/bottom-nav';
 
@@ -27,10 +28,24 @@ export class SubjectListPageComponent implements OnInit {
     private appState: AppStateService,
     private router: Router,
     public auth: AuthService,
-    private progressService: ProgressService
+    private progressService: ProgressService,
+    private firestore: Firestore
   ) {}
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    const user = await this.auth.signInAnonymouslyIfNeeded();
+    if (!this.appState.getBoard() || !this.appState.getStandard()) {
+      if (user) {
+        const ref = doc(this.firestore, `Users/${user.uid}`);
+        const snap = await getDoc(ref);
+        if (snap.exists()) {
+          const data = snap.data() as any;
+          const profile = data.profile || {};
+          if (profile.board) this.appState.setBoard(profile.board);
+          if (profile.standard) this.appState.setStandard(profile.standard);
+        }
+      }
+    }
     this.syllabusService.getSyllabusTree().subscribe(data => {
       const board = this.appState.getBoard();
       const standard = this.appState.getStandard();

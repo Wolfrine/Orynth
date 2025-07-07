@@ -34,6 +34,23 @@ export class ProgressService {
     }, { merge: true });
   }
 
+  async setAllProgress(progressMap: any) {
+    if (!this.auth.isLoggedIn()) {
+      return;
+    }
+    const uid = this.auth.getCurrentUserId();
+    const board = this.appState.getBoard();
+    const standard = this.appState.getStandard();
+    const ref = doc(this.firestore, `Users/${uid}`);
+    await setDoc(ref, {
+      progress: {
+        [board]: {
+          [standard]: progressMap
+        }
+      }
+    }, { merge: true });
+  }
+
   getProgress(subjectId: string): Observable<any | undefined> {
     const uid = this.auth.getCurrentUserId();
     const board = this.appState.getBoard();

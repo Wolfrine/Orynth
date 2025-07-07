@@ -25,6 +25,7 @@ export class ChapterTrackerPageComponent implements OnInit, OnDestroy {
   chapters: any[] = [];
   subject = '';
   noData = false;
+  private allSubjects: string[] = [];
   private progressSub?: Subscription;
   constructor(
     private appState: AppStateService,
@@ -40,6 +41,7 @@ export class ChapterTrackerPageComponent implements OnInit, OnDestroy {
       const board = this.appState.getBoard();
       const standard = this.appState.getStandard();
       const subject = this.appState.getSubject();
+      this.allSubjects = Object.keys(data?.[board]?.[standard] || {});
       if (data && data[board] && data[board][standard] && data[board][standard][subject]) {
         const chaptersData = data[board][standard][subject];
         if (Array.isArray(chaptersData)) {
@@ -89,7 +91,16 @@ export class ChapterTrackerPageComponent implements OnInit, OnDestroy {
 
   saveProgress() {
     localStorage.setItem(`${this.subject}-progress`, JSON.stringify(this.chapters));
-    this.progressService.setProgress(this.subject, this.chapters);
+    const progress: any = {};
+    this.allSubjects.forEach(sub => {
+      const saved = localStorage.getItem(`${sub}-progress`);
+      try {
+        progress[sub] = saved ? JSON.parse(saved) : [];
+      } catch {
+        progress[sub] = [];
+      }
+    });
+    this.progressService.setAllProgress(progress);
   }
 
   getStatusLabel(status: string): string {
