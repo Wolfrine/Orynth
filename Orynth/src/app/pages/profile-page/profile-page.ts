@@ -67,14 +67,16 @@ export class ProfilePageComponent implements OnInit {
   async save() {
     this.appState.setBoard(this.selectedBoard);
     this.appState.setStandard(this.selectedClass);
-    const profileRef = doc(this.firestore, `Users/${this.uid}`);
-    await setDoc(profileRef, {
-      profile: {
-        board: this.selectedBoard,
-        standard: this.selectedClass,
-        school: this.school,
-        birthDate: this.birthDate
-      }
-    }, { merge: true });
+    if (this.auth.isLoggedIn()) {
+      const profileRef = doc(this.firestore, `Users/${this.uid}`);
+      await setDoc(profileRef, {
+        profile: {
+          board: this.selectedBoard,
+          standard: this.selectedClass,
+          school: this.school,
+          birthDate: this.birthDate
+        }
+      }, { merge: true });
+    }
   }
 }
