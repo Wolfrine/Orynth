@@ -16,6 +16,9 @@ export class ProgressService {
   ) { }
 
   async setProgress(subjectId: string, data: any) {
+    if (!this.auth.isLoggedIn()) {
+      return;
+    }
     const uid = this.auth.getCurrentUserId();
     const board = this.appState.getBoard();
     const standard = this.appState.getStandard();
