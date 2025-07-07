@@ -6,6 +6,7 @@ import { Firestore, doc, getDoc, setDoc } from '@angular/fire/firestore';
 import { AuthService } from '../../services/auth.service';
 import { AppStateService } from '../../services/app-state.service';
 import { SyllabusService } from '../../services/syllabus.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile-page',
@@ -28,7 +29,8 @@ export class ProfilePageComponent implements OnInit {
     private firestore: Firestore,
     public auth: AuthService,
     private appState: AppStateService,
-    private syllabusService: SyllabusService
+    private syllabusService: SyllabusService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -78,5 +80,12 @@ export class ProfilePageComponent implements OnInit {
         }
       }, { merge: true });
     }
+  }
+
+  async logout() {
+    await this.auth.logout();
+    this.appState.setBoard('');
+    this.appState.setStandard('');
+    await this.router.navigate(['/onboarding']);
   }
 }

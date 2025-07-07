@@ -20,26 +20,27 @@ export class OnboardingPageComponent implements OnInit {
   ) {}
 
   async ngOnInit() {
-    if (!this.auth.isLoggedIn()) {
-      return;
-    }
-
-    const uid = this.auth.getCurrentUserId();
-    const profileRef = doc(this.firestore, `Users/${uid}`);
-    const snap = await getDoc(profileRef);
-
-    if (snap.exists()) {
-      const data = snap.data() as any;
-      const profile = data.profile || {};
-      if (profile.board && profile.standard) {
-        this.appState.setBoard(profile.board);
-        this.appState.setStandard(profile.standard);
-        await this.router.navigate(['/subject-list']);
+    this.auth.authState$.subscribe(async user => {
+      if (!user || user.isAnonymous) {
         return;
       }
-    }
 
-    await this.router.navigate(['/board-class-selection']);
+      const profileRef = doc(this.firestore, `Users/${user.uid}`);
+      const snap = await getDoc(profileRef);
+
+      if (snap.exists()) {
+        const data = snap.data() as any;
+        const profile = data.profile || {};
+        if (profile.board && profile.standard) {
+          this.appState.setBoard(profile.board);
+          this.appState.setStandard(profile.standard);
+          await this.router.navigate(['/subject-list']);
+          return;
+        }
+      }
+
+      await this.router.navigate(['/board-class-selection']);
+    });
   }
 
   async startTracking() {
