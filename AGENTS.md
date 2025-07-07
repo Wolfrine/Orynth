@@ -41,3 +41,12 @@ Phase 1 Feature Status:
 - Dashboard Page: Partial – stats are dummy placeholders only
 - Auth Layer: Done – anonymous auth + offline persistence enabled
 
+### Recent Updates
+
+- Board and class choices are now saved to `Users/{uid}.profile` when the user
+  starts learning so they can be restored on future visits.
+- Subject list page reads the saved board and class if the in-memory state is
+  empty to ensure the correct syllabus always loads.
+- Chapter tracker pushes progress for **all** subjects whenever any chapter is
+  updated, keeping offline edits in sync.
+

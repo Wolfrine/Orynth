@@ -55,6 +55,10 @@ export class BoardClassSelectionPageComponent implements OnInit {
       subjects.forEach(s => progress[s] = {});
       const ref = doc(this.firestore, `Users/${uid}`);
       await setDoc(ref, {
+        profile: {
+          board: this.selectedBoard,
+          standard: this.selectedClass
+        },
         progress: {
           [this.selectedBoard]: {
             [this.selectedClass]: progress
