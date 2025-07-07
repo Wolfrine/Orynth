@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Auth, signInAnonymously, User, authState, linkWithPopup, GoogleAuthProvider, linkWithPhoneNumber, signInWithPopup } from '@angular/fire/auth';
+import { Auth, signInAnonymously, User, authState, linkWithPopup, GoogleAuthProvider, linkWithPhoneNumber, signInWithPopup, signInWithCredential, signOut } from '@angular/fire/auth';
 import { Observable } from 'rxjs';
 import { Firestore, doc, setDoc } from '@angular/fire/firestore';
 
@@ -46,12 +46,22 @@ export class AuthService {
       return cred;
     } catch (err: any) {
       if (err.code === 'auth/credential-already-in-use') {
-        const cred = await signInWithPopup(this.auth, new GoogleAuthProvider());
+        const credential = GoogleAuthProvider.credentialFromError(err);
+        let cred;
+        if (credential) {
+          cred = await signInWithCredential(this.auth, credential);
+        } else {
+          cred = await signInWithPopup(this.auth, new GoogleAuthProvider());
+        }
         await this.saveUserInfo(cred.user);
         return cred;
       }
       throw err;
     }
+  }
+
+  async logout() {
+    await signOut(this.auth);
   }
 
   async upgradeWithPhoneNumber(phoneNumber: string, appVerifier: any) {
