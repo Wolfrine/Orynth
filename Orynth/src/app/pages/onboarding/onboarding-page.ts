@@ -20,13 +20,12 @@ export class OnboardingPageComponent implements OnInit {
   ) {}
 
   async ngOnInit() {
-    const user = await this.auth.signInAnonymouslyIfNeeded();
-    if (!user) {
-      await this.router.navigate(['/board-class-selection']);
+    if (!this.auth.isLoggedIn()) {
       return;
     }
 
-    const profileRef = doc(this.firestore, `Users/${user.uid}`);
+    const uid = this.auth.getCurrentUserId();
+    const profileRef = doc(this.firestore, `Users/${uid}`);
     const snap = await getDoc(profileRef);
 
     if (snap.exists()) {
@@ -46,7 +45,7 @@ export class OnboardingPageComponent implements OnInit {
   async startTracking() {
     const user = await this.auth.signInAnonymouslyIfNeeded();
     if (user) {
-      console.log('Auth UID:', user.uid);
+      await this.router.navigate(['/board-class-selection']);
     }
   }
 }
