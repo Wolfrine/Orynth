@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { AuthService } from './services/auth.service';
 
@@ -9,12 +9,8 @@ import { AuthService } from './services/auth.service';
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
-export class App implements OnInit {
+export class App {
   protected title = 'Orynth';
 
   constructor(private auth: AuthService) {}
-
-  ngOnInit(): void {
-    this.auth.signInAnonymouslyIfNeeded();
-  }
 }

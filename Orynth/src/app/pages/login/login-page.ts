@@ -22,7 +22,7 @@ export class LoginPageComponent implements OnInit {
   }
 
   async loginWithGoogle() {
-    await this.auth.upgradeWithGoogle();
+    await this.auth.loginWithGoogle();
     await this.router.navigate(['/subject-list']);
   }
 }
