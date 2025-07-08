@@ -5,7 +5,7 @@ import { provideRouter } from '@angular/router';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { provideAuth } from '@angular/fire/auth';
 import { provideFirestore } from '@angular/fire/firestore';
-import { initializeAuth, indexedDBLocalPersistence } from 'firebase/auth';
+import { initializeAuth, indexedDBLocalPersistence, browserPopupRedirectResolver } from 'firebase/auth';
 import {
   initializeFirestore,
   persistentLocalCache,
@@ -59,7 +59,8 @@ export const appConfig: ApplicationConfig = {
     provideAuth(() => {
       const app = getApp();
       return initializeAuth(app, {
-        persistence: indexedDBLocalPersistence
+        persistence: indexedDBLocalPersistence,
+        popupRedirectResolver: browserPopupRedirectResolver
       });
     }),
     provideFirestore(() => firestoreFactory())
