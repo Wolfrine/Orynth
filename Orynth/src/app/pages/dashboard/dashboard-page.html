@@ -7,7 +7,9 @@
         </svg>
       </a>
       <h1 class="text-lg font-semibold text-gray-900">Dashboard</h1>
-      <a *ngIf="(auth.authState$ | async)?.isAnonymous" routerLink="/login" class="text-sm font-medium text-primary tap-highlight">Login</a>
+      <ng-container *ngIf="auth.authState$ | async as user">
+        <a *ngIf="!user || user.isAnonymous" routerLink="/login" class="text-sm font-medium text-primary tap-highlight">Login</a>
+      </ng-container>
     </div>
   </div>
 
