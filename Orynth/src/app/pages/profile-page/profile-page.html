@@ -3,8 +3,10 @@
     <div class="flex items-center justify-between p-4">
       <div class="w-10"></div>
       <h1 class="text-lg font-semibold text-gray-900">Your Profile</h1>
-      <a *ngIf="(auth.authState$ | async)?.isAnonymous" routerLink="/login" class="text-sm font-medium text-primary tap-highlight">Login</a>
-      <button *ngIf="!(auth.authState$ | async)?.isAnonymous" (click)="logout()" class="text-sm font-medium text-primary tap-highlight">Logout</button>
+      <ng-container *ngIf="auth.authState$ | async as user">
+        <a *ngIf="!user || user.isAnonymous" routerLink="/login" class="text-sm font-medium text-primary tap-highlight">Login</a>
+        <button *ngIf="user && !user.isAnonymous" (click)="logout()" class="text-sm font-medium text-primary tap-highlight">Logout</button>
+      </ng-container>
     </div>
   </div>
 

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Auth, signInAnonymously, User, authState, linkWithPopup, GoogleAuthProvider, linkWithPhoneNumber, signInWithPopup, signInWithCredential, signOut } from '@angular/fire/auth';
-import { Observable, take } from 'rxjs';
+import { Auth, User, authState, linkWithPopup, GoogleAuthProvider, linkWithPhoneNumber, signInWithPopup, signInWithCredential, signOut } from '@angular/fire/auth';
+import { Observable } from 'rxjs';
 import { Firestore, doc, setDoc } from '@angular/fire/firestore';
 
 @Injectable({
@@ -11,13 +11,6 @@ export class AuthService {
 
   constructor(private auth: Auth, private firestore: Firestore) {
     this.authState$ = authState(this.auth);
-    this.authState$.pipe(take(1)).subscribe(user => {
-      if (!user) {
-        signInAnonymously(this.auth).catch(err => {
-          console.error('Anonymous sign-in failed', err);
-        });
-      }
-    });
   }
 
   getCurrentUserId(): string {

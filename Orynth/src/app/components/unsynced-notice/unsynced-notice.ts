@@ -14,7 +14,7 @@ export class UnsyncedNoticeComponent {
   show = false;
   constructor(private auth: Auth, private authService: AuthService) {
     this.authService.authState$.subscribe(u => {
-      this.show = !!u && u.isAnonymous;
+      this.show = !u;
     });
   }
 }
