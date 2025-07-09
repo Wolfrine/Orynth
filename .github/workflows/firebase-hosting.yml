@@ -15,12 +15,12 @@ jobs:
         working-directory: Orynth
       - run: npm run build
         working-directory: Orynth
-      - name: Select Firebase target
+      - name: Set Firebase channel
         run: |
           if [[ "$GITHUB_REF_NAME" == 'main' ]]; then
-            echo "FIREBASE_TARGET=prod" >> $GITHUB_ENV
+            echo "FIREBASE_CHANNEL=live" >> $GITHUB_ENV
           else
-            echo "FIREBASE_TARGET=dev" >> $GITHUB_ENV
+            echo "FIREBASE_CHANNEL=dev-preview" >> $GITHUB_ENV
           fi
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
@@ -28,5 +28,5 @@ jobs:
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}'
           entryPoint: Orynth
           projectId: orynth-io
-          target: ${{ env.FIREBASE_TARGET }}
+          channelId: ${{ env.FIREBASE_CHANNEL }}
 

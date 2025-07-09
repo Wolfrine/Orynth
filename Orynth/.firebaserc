@@ -1,13 +1,5 @@
 {
   "projects": {
     "default": "orynth-io"
-  },
-  "targets": {
-    "orynth-io": {
-      "hosting": {
-        "prod": ["orynth-io"],
-        "dev": ["dev-orynth-io"]
-      }
-    }
   }
 }
