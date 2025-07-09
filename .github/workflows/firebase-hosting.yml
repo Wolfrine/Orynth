@@ -29,4 +29,5 @@ jobs:
           entryPoint: Orynth
           projectId: orynth-io
           target: ${{ env.FIREBASE_TARGET }}
+          channelId: live
 
