@@ -2,7 +2,6 @@
   "hosting": [
     {
       "target": "prod",
-      "site": "orynth-io",
       "public": "dist/Orynth/browser",
       "ignore": [
         "firebase.json",
@@ -18,7 +17,6 @@
     },
     {
       "target": "dev",
-      "site": "dev-orynth-io",
       "public": "dist/Orynth/browser",
       "ignore": [
         "firebase.json",
