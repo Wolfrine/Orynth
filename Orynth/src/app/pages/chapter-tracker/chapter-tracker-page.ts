@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ChipComponent } from '../../components/chip/chip';
 import { AppStateService } from '../../services/app-state.service';
@@ -31,7 +31,8 @@ export class ChapterTrackerPageComponent implements OnInit, OnDestroy {
     private appState: AppStateService,
     private syllabusService: SyllabusService,
     private progressService: ProgressService,
-    public auth: AuthService
+    public auth: AuthService,
+    private router: Router
   ) {
     this.subject = this.appState.getSubject();
   }
@@ -87,6 +88,11 @@ export class ChapterTrackerPageComponent implements OnInit, OnDestroy {
     const idx = cycle.indexOf(chapter.status);
     chapter.status = cycle[(idx + 1) % cycle.length];
     this.saveProgress();
+  }
+
+  addResult(chapter: any) {
+    this.appState.setChapter(chapter.name);
+    this.router.navigate(['/add-test-results']);
   }
 
   saveProgress() {

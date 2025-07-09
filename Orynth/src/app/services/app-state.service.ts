@@ -5,6 +5,7 @@ export class AppStateService {
   private board = '';
   private standard = '';
   private subject = '';
+  private chapter = '';
 
   setBoard(value: string) {
     this.board = value;
@@ -28,5 +29,13 @@ export class AppStateService {
 
   getSubject(): string {
     return this.subject;
+  }
+
+  setChapter(value: string) {
+    this.chapter = value;
+  }
+
+  getChapter(): string {
+    return this.chapter;
   }
 }
