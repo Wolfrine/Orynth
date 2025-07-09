@@ -1,16 +1,42 @@
 {
-  "hosting": {
-    "public": "dist/Orynth/browser",
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ],
-    "rewrites": [
-      {
-        "source": "**",
-        "destination": "/index.html"
+  "hosting": [
+    {
+      "target": "prod",
+      "public": "dist/Orynth/browser",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
+    },
+    {
+      "target": "dev",
+      "public": "dist/Orynth/browser",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
+    }
+  ],
+  "targets": {
+    "orynth-io": {
+      "hosting": {
+        "prod": ["orynth-io"],
+        "dev": ["dev-orynth"]
       }
-    ]
+    }
   }
 }
