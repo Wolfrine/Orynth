@@ -6,7 +6,7 @@
     "orynth-io": {
       "hosting": {
         "prod": ["orynth-io"],
-        "dev": ["dev-orynth"]
+        "dev": ["dev-orynth-io"]
       }
     }
   }
