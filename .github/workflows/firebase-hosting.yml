@@ -15,12 +15,12 @@ jobs:
         working-directory: Orynth
       - run: npm run build
         working-directory: Orynth
-      - name: Set Firebase site
+      - name: Select deploy channel
         run: |
           if [[ "$GITHUB_REF_NAME" == 'main' ]]; then
-            echo "FIREBASE_SITE=orynth-io" >> $GITHUB_ENV
+            echo "CHANNEL=live" >> $GITHUB_ENV
           else
-            echo "FIREBASE_SITE=dev-orynth-io" >> $GITHUB_ENV
+            echo "CHANNEL=dev-preview" >> $GITHUB_ENV
           fi
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
@@ -28,6 +28,5 @@ jobs:
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}'
           entryPoint: Orynth
           projectId: orynth-io
-          target: ${{ env.FIREBASE_SITE }}
-          channelId: live
+          channelId: ${{ env.CHANNEL }}
 
