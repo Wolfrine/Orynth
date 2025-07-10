@@ -3,30 +3,32 @@ name: Deploy to Firebase Hosting
 on:
   push:
 
+    branches:
+      - '**'
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v3
+
       - uses: actions/setup-node@v3
         with:
           node-version: '20'
+
       - run: npm ci
         working-directory: Orynth
+
       - run: npm run build
         working-directory: Orynth
-      - name: Set Firebase channel
-        run: |
-          if [[ "$GITHUB_REF_NAME" == 'main' ]]; then
-            echo "FIREBASE_CHANNEL=live" >> $GITHUB_ENV
-          else
-            echo "FIREBASE_CHANNEL=dev-preview" >> $GITHUB_ENV
-          fi
-      - uses: FirebaseExtended/action-hosting-deploy@v0
+
+      - name: Deploy to Firebase Hosting
+        uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}'
           entryPoint: Orynth
           projectId: orynth-io
-          channelId: ${{ env.FIREBASE_CHANNEL }}
-
+          channelId: live
+          target: ${{ github.ref_name == 'main' && 'prod-orynth-io' || 'dev-orynth-io' }}
