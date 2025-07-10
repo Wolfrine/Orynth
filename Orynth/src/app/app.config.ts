@@ -1,4 +1,4 @@
-import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZoneChangeDetection } from '@angular/core';
+import { ApplicationConfig, importProvidersFrom, provideBrowserGlobalErrorListeners, provideZoneChangeDetection } from '@angular/core';
 import { provideHttpClient } from '@angular/common/http';
 import { provideServiceWorker } from '@angular/service-worker';
 import { provideRouter } from '@angular/router';
@@ -15,6 +15,7 @@ import { getApp } from 'firebase/app';
 import { environment } from '../environments/environment';
 
 import { routes } from './app.routes';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 let firestoreInstance: ReturnType<typeof initializeFirestore> | undefined;
 
@@ -63,6 +64,7 @@ export const appConfig: ApplicationConfig = {
         popupRedirectResolver: browserPopupRedirectResolver
       });
     }),
-    provideFirestore(() => firestoreFactory())
+    provideFirestore(() => firestoreFactory()),
+    importProvidersFrom(MatSnackBarModule)
   ]
 };
