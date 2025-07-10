@@ -1,5 +1,18 @@
 {
   "projects": {
     "default": "orynth-io"
-  }
+  },
+  "targets": {
+    "orynth-io": {
+      "hosting": {
+        "dev-orynth-io": [
+          "dev-orynth-io"
+        ],
+        "prod-orynth-io": [
+          "orynth-io"
+        ]
+      }
+    }
+  },
+  "etags": {}
 }
