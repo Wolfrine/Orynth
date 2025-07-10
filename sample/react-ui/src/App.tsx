@@ -9,6 +9,7 @@ import BoardSelection from "./pages/BoardSelection";
 import SubjectList from "./pages/SubjectList";
 import ChapterTracker from "./pages/ChapterTracker";
 import Dashboard from "./pages/Dashboard";
+import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -25,6 +26,7 @@ const App = () => (
           <Route path="/subjects" element={<SubjectList />} />
           <Route path="/chapters/:subject" element={<ChapterTracker />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/profile" element={<Profile />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

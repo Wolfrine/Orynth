@@ -22,4 +22,17 @@ export const routes: Routes = [
     path: 'dashboard',
     loadComponent: () => import('./pages/dashboard/dashboard-page').then(m => m.DashboardPageComponent)
   },
+  {
+    path: 'profile',
+    loadComponent: () => import('./pages/profile-page/profile-page').then(m => m.ProfilePageComponent),
+    title: 'Profile'
+  },
+  {
+    path: 'login',
+    loadComponent: () => import('./pages/login/login-page').then(m => m.LoginPageComponent)
+  },
+  {
+    path: 'firebase-test',
+    loadComponent: () => import('./components/firebase-test/firebase-test.component').then(m => m.FirebaseTestComponent)
+  },
 ];

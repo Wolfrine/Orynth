@@ -1,0 +1,8 @@
+/* Highlight active nav item */
+.active-link svg {
+  @apply text-primary;
+}
+
+.active-link span {
+  @apply text-primary font-medium;
+}

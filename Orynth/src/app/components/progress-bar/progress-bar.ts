@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-progress-bar',
+  standalone: true,
   imports: [CommonModule],
   templateUrl: './progress-bar.html',
   styleUrl: './progress-bar.scss'

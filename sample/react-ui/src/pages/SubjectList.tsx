@@ -1,6 +1,6 @@
 
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft, BookOpen, Calculator, Atom, Globe, Users, Palette } from "lucide-react";
+import { Calculator, Atom, Globe, Users, Palette, Home, BarChart3, User } from "lucide-react";
 
 const SubjectList = () => {
   const navigate = useNavigate();
@@ -8,9 +8,9 @@ const SubjectList = () => {
   const subjects = [
     { id: "mathematics", name: "Mathematics", icon: Calculator, progress: 68, color: "bg-blue-500" },
     { id: "physics", name: "Physics", icon: Atom, progress: 45, color: "bg-purple-500" },
-    { id: "chemistry", name: "Chemistry", icon: BookOpen, progress: 72, color: "bg-green-500" },
+    { id: "chemistry", name: "Chemistry", icon: Palette, progress: 72, color: "bg-green-500" },
     { id: "biology", name: "Biology", icon: Users, progress: 38, color: "bg-red-500" },
-    { id: "english", name: "English", icon: BookOpen, progress: 85, color: "bg-indigo-500" },
+    { id: "english", name: "English", icon: Palette, progress: 85, color: "bg-indigo-500" },
     { id: "social-science", name: "Social Science", icon: Globe, progress: 56, color: "bg-yellow-500" },
   ];
 
@@ -21,23 +21,11 @@ const SubjectList = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-green-50">
-      {/* Header */}
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-green-50 pb-20">
+      {/* Header - No back button */}
       <div className="bg-white/80 backdrop-blur-sm sticky top-0 z-10">
-        <div className="flex items-center justify-between p-4">
-          <button
-            onClick={() => navigate("/board-selection")}
-            className="p-2 hover:bg-white/20 rounded-full tap-highlight"
-          >
-            <ArrowLeft className="w-6 h-6 text-gray-700" />
-          </button>
+        <div className="text-center py-4">
           <h1 className="text-lg font-semibold text-gray-900">My Subjects</h1>
-          <button
-            onClick={() => navigate("/dashboard")}
-            className="text-sm font-medium text-primary tap-highlight"
-          >
-            Dashboard
-          </button>
         </div>
       </div>
 
@@ -102,6 +90,39 @@ const SubjectList = () => {
               </div>
             </div>
           </div>
+
+        </div>
+      </div>
+
+      {/* Fixed Bottom Navigation */}
+      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-6 py-3 z-50">
+        <div className="flex justify-around items-center max-w-sm mx-auto">
+          <button
+            onClick={() => navigate("/")}
+            className="flex flex-col items-center space-y-1 tap-highlight"
+          >
+            <Home className="w-6 h-6 text-gray-600" />
+            <span className="text-xs text-gray-600">Home</span>
+          </button>
+          <button
+            onClick={() => navigate("/dashboard")}
+            className="flex flex-col items-center space-y-1 tap-highlight"
+          >
+            <BarChart3 className="w-6 h-6 text-gray-600" />
+            <span className="text-xs text-gray-600">Dashboard</span>
+          </button>
+          <button
+            onClick={() => navigate("/profile")}
+            className="flex flex-col items-center space-y-1 tap-highlight"
+          >
+            <User className="w-6 h-6 text-gray-600" />
+            <span className="text-xs text-gray-600">Profile</span>
+          </button>
+        </div>
+        
+        {/* Powered by Growth Tutorials */}
+        <div className="text-center pt-2 border-t border-gray-100 mt-3">
+          <p className="text-xs text-gray-500">Powered by Growth Tutorials</p>
         </div>
       </div>
     </div>
