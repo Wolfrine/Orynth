@@ -35,4 +35,8 @@ export const routes: Routes = [
     path: 'firebase-test',
     loadComponent: () => import('./components/firebase-test/firebase-test.component').then(m => m.FirebaseTestComponent)
   },
+  {
+    path: 'add-test-results',
+    loadComponent: () => import('./pages/add-test-results/add-test-results-page').then(m => m.AddTestResultsPageComponent)
+  },
 ];

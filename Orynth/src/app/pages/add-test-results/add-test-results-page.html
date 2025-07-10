@@ -1,0 +1,50 @@
+<div class="min-h-screen bg-gradient-to-br from-blue-50 to-green-50 page-wrapper">
+  <div class="bg-white/90 backdrop-blur-sm sticky top-0 z-10 border-b border-gray-200">
+    <div class="flex items-center justify-between p-4">
+      <button (click)="goBack()" class="p-2 hover:bg-gray-100 rounded-full tap-highlight">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-gray-700">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+      </button>
+      <h1 class="text-lg font-semibold text-gray-900">{{ chapter }}</h1>
+      <div class="w-10"></div>
+    </div>
+  </div>
+
+  <div class="px-6 pt-6 pb-8">
+    <div class="max-w-sm mx-auto space-y-6">
+      <div class="bg-white rounded-xl p-6 card-shadow">
+        <div class="space-y-4">
+          <div>
+            <label class="text-sm font-medium text-gray-900">Test Type</label>
+            <select [(ngModel)]="testType" class="w-full h-12 bg-gray-50 rounded-xl border-gray-200 mt-1">
+              <option value="Test">Test</option>
+              <option value="Exam">Exam</option>
+              <option value="Practice">Practice</option>
+            </select>
+          </div>
+          <div>
+            <label class="text-sm font-medium text-gray-900">Total Marks</label>
+            <input type="number" [(ngModel)]="totalMarks" class="w-full h-12 bg-gray-50 rounded-xl border-gray-200 mt-1" />
+          </div>
+          <div>
+            <label class="text-sm font-medium text-gray-900">Marks Achieved</label>
+            <input type="number" [(ngModel)]="marksAchieved" class="w-full h-12 bg-gray-50 rounded-xl border-gray-200 mt-1" />
+          </div>
+          <button (click)="save()" class="w-full h-12 bg-primary text-white rounded-xl">Save Result</button>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-xl p-6 card-shadow" *ngIf="results.length > 0">
+        <h2 class="text-lg font-semibold text-gray-900 mb-4">Previous Entries</h2>
+        <div class="space-y-2">
+          <div *ngFor="let r of results" class="flex justify-between text-sm">
+            <div>{{ r.testType }} - {{ r.marksAchieved }}/{{ r.totalMarks }}</div>
+            <div class="text-gray-500">{{ r.timestamp | date:'shortDate' }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-bottom-nav></app-bottom-nav>
