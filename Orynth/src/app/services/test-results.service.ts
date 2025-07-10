@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Firestore, doc, updateDoc, arrayUnion, docData } from '@angular/fire/firestore';
+import { of, Observable, map } from 'rxjs';
 import { AuthService } from './auth.service';
 import { AppStateService } from './app-state.service';
-import { Observable, map } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class TestResultsService {
@@ -17,6 +17,7 @@ export class TestResultsService {
       return;
     }
     const uid = this.auth.getCurrentUserId();
+    if (!uid) return;
     const board = this.appState.getBoard();
     const standard = this.appState.getStandard();
     const ref = doc(this.firestore, `Users/${uid}`);
@@ -26,6 +27,7 @@ export class TestResultsService {
 
   getResults(subjectId: string, chapter: string): Observable<any[]> {
     const uid = this.auth.getCurrentUserId();
+    if (!uid) return of([]);
     const board = this.appState.getBoard();
     const standard = this.appState.getStandard();
     const ref = doc(this.firestore, `Users/${uid}`);
