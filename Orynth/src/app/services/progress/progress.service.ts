@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Firestore, doc, setDoc, docData } from '@angular/fire/firestore';
-import { Observable, map } from 'rxjs';
+import { Observable, map, of } from 'rxjs';
 import { AuthService } from '../auth.service';
 import { AppStateService } from '../app-state.service';
 
@@ -20,6 +20,9 @@ export class ProgressService {
       return;
     }
     const uid = this.auth.getCurrentUserId();
+    if (!uid) {
+      return;
+    }
     const board = this.appState.getBoard();
     const standard = this.appState.getStandard();
     const ref = doc(this.firestore, `Users/${uid}`);
@@ -39,6 +42,9 @@ export class ProgressService {
       return;
     }
     const uid = this.auth.getCurrentUserId();
+    if (!uid) {
+      return;
+    }
     const board = this.appState.getBoard();
     const standard = this.appState.getStandard();
     const ref = doc(this.firestore, `Users/${uid}`);
@@ -53,6 +59,9 @@ export class ProgressService {
 
   getProgress(subjectId: string): Observable<any | undefined> {
     const uid = this.auth.getCurrentUserId();
+    if (!uid) {
+      return of(undefined);
+    }
     const board = this.appState.getBoard();
     const standard = this.appState.getStandard();
     const ref = doc(this.firestore, `Users/${uid}`);
