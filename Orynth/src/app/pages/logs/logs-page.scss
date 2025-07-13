@@ -12,8 +12,8 @@ mat-list-item:last-child {
 }
 
 mat-line.log-line {
-  @apply w-full text-left font-mono text-sm break-words whitespace-pre-wrap leading-snug;
+  @apply w-full font-mono text-sm break-words whitespace-pre-wrap text-left leading-snug;
   word-break: break-word;
-  overflow-wrap: break-word;
+  overflow-wrap: anywhere;
   display: block;
 }
