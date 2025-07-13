@@ -88,3 +88,9 @@ result in an `Invalid document reference` error.
 - **Auth Layer – ✅ Done**
   - Anonymous login and IndexedDB persistence enabled
 
+## Versioning
+
+The app version is shown in `bottom-nav.html`. Bump the patch version by one
+with each commit unless a specific version is requested. For example,
+increment `v0.0.1` to `v0.0.2` when updating the code.
+
