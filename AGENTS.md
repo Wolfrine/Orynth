@@ -8,6 +8,9 @@ npm run build
 If the build fails, fix the issue before committing.
 Report the result of the build in the Testing section of your pull request message.
 
+Increment the version displayed in `bottom-nav.html` with each commit unless a
+prompt specifies a different version.
+
 Firestore reads and writes must target a document path with an **even number of segments**. The main user document lives at `Users/{uid}`. Store all related data (basic info, profile details and syllabus progress) inside that document as nested objects:
 
 ```

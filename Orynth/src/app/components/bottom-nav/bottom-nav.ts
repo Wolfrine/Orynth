@@ -9,4 +9,15 @@ import { RouterModule } from '@angular/router';
   templateUrl: './bottom-nav.html',
   styleUrl: './bottom-nav.scss'
 })
-export class BottomNavComponent {}
+export class BottomNavComponent {
+  reloadApp() {
+    if ('caches' in globalThis) {
+      caches
+        .keys()
+        .then(keys => Promise.all(keys.map(k => caches.delete(k))))
+        .finally(() => globalThis.location.reload());
+    } else {
+      globalThis.location.reload();
+    }
+  }
+}
