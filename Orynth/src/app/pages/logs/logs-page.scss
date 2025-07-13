@@ -3,14 +3,17 @@ mat-list {
 }
 
 mat-list-item.log-item {
-  @apply flex flex-col items-start text-left px-2 py-2 mb-2 border-b border-gray-200;
-  height: auto;
+  @apply px-3 py-2 border-b border-gray-200;
+  align-items: flex-start !important;
 }
 
-mat-list-item.log-item:last-child {
-  @apply mb-0 border-b-0;
+mat-list-item:last-child {
+  @apply border-b-0;
 }
 
 mat-line.log-line {
-  @apply w-full whitespace-pre-wrap break-all font-mono leading-snug;
+  @apply w-full text-left font-mono text-sm break-words whitespace-pre-wrap leading-snug;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  display: block;
 }
