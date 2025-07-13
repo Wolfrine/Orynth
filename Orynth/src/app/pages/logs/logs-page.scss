@@ -1,0 +1,7 @@
+mat-list {
+  @apply max-w-sm mx-auto bg-white rounded-xl card-shadow;
+}
+
+mat-list-item {
+  @apply border-b border-gray-100;
+}

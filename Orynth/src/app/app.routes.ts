@@ -39,4 +39,8 @@ export const routes: Routes = [
     path: 'add-test-results',
     loadComponent: () => import('./pages/add-test-results/add-test-results-page').then(m => m.AddTestResultsPageComponent)
   },
+  {
+    path: 'logs',
+    loadComponent: () => import('./pages/logs/logs-page').then(m => m.LogsPageComponent)
+  },
 ];
