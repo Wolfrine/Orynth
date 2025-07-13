@@ -15,7 +15,7 @@
     <mat-list>
       <mat-list-item *ngFor="let l of logs$ | async" class="log-item">
         <div matLine class="log-line">
-          <span class="timestamp">{{ l.timestamp | date:'short' }}:</span>
+          <span class="timestamp mr-1">{{ l.timestamp | date:'short' }}:</span>
           <span class="message">{{ l.message }}</span>
         </div>
       </mat-list-item>
