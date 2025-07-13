@@ -3,5 +3,9 @@ mat-list {
 }
 
 mat-list-item {
-  @apply border-b border-gray-100;
+  @apply border-b border-gray-100 flex-col items-start;
+}
+
+mat-line {
+  @apply break-all whitespace-pre-wrap w-full leading-snug;
 }
