@@ -1,9 +1,9 @@
 mat-list {
-  @apply max-w-sm mx-auto bg-white rounded-xl card-shadow;
+  @apply w-full bg-white rounded-xl card-shadow;
 }
 
 mat-list-item {
-  @apply border-b border-gray-100 flex-col items-start;
+  @apply border-b border-gray-100 flex-col items-start px-2;
 }
 
 mat-line {
