@@ -3,7 +3,7 @@ mat-list {
 }
 
 mat-list-item.log-item {
-  @apply flex flex-col items-start text-left px-2 pb-2 mb-2 border-b border-gray-200;
+  @apply flex flex-col items-start text-left px-2 py-2 mb-2 border-b border-gray-200;
   height: auto;
 }
 
@@ -12,5 +12,5 @@ mat-list-item.log-item:last-child {
 }
 
 mat-line.log-line {
-  @apply w-full break-words whitespace-pre-wrap font-mono leading-snug;
+  @apply w-full whitespace-pre-wrap break-all font-mono leading-snug;
 }
