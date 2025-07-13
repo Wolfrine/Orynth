@@ -1,19 +1,22 @@
-mat-list {
+.log-container {
   @apply w-full bg-white rounded-xl card-shadow;
 }
 
-mat-list-item.log-item {
-  @apply px-3 py-2 border-b border-gray-200;
-  align-items: flex-start !important;
+.log-item {
+  @apply flex items-start text-left px-3 py-2 border-b border-gray-200 font-mono text-sm whitespace-pre-wrap break-words leading-snug;
+  word-break: break-word;
+  overflow-wrap: anywhere;
 }
 
-mat-list-item:last-child {
+.log-item:last-child {
   @apply border-b-0;
 }
 
-mat-line.log-line {
-  @apply w-full font-mono text-sm break-words whitespace-pre-wrap text-left leading-snug;
-  word-break: break-word;
+.timestamp {
+  @apply mr-2 text-gray-500 flex-shrink-0;
+}
+
+.message {
+  @apply flex-1 break-words;
   overflow-wrap: anywhere;
-  display: block;
 }
