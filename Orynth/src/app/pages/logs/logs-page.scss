@@ -2,10 +2,15 @@ mat-list {
   @apply w-full bg-white rounded-xl card-shadow;
 }
 
-mat-list-item {
-  @apply border-b border-gray-100 flex-col items-start px-2;
+mat-list-item.log-item {
+  @apply flex flex-col items-start text-left px-2 pb-2 mb-2 border-b border-gray-200;
+  height: auto;
 }
 
-mat-line {
-  @apply break-all whitespace-pre-wrap w-full leading-snug;
+mat-list-item.log-item:last-child {
+  @apply mb-0 border-b-0;
+}
+
+mat-line.log-line {
+  @apply w-full break-words whitespace-pre-wrap font-mono leading-snug;
 }

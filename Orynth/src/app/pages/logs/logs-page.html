@@ -13,8 +13,8 @@
 
   <div class="p-4">
     <mat-list>
-      <mat-list-item *ngFor="let l of logs$ | async" class="break-words whitespace-pre-wrap">
-        <div matLine>{{ l.timestamp | date:'short' }}: {{ l.message }}</div>
+      <mat-list-item *ngFor="let l of logs$ | async" class="log-item">
+        <div matLine class="log-line">{{ l.timestamp | date:'short' }}: {{ l.message }}</div>
       </mat-list-item>
     </mat-list>
   </div>
