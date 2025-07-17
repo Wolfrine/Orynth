@@ -91,8 +91,10 @@ export class ChapterTrackerPageComponent implements OnInit, OnDestroy {
     this.saveProgress();
   }
 
-  updateConfidence(chapter: Chapter, level: 'low' | 'medium' | 'high') {
-    chapter.confidence = level;
+  cycleConfidence(chapter: Chapter) {
+    const cycle: Chapter['confidence'][] = ['low', 'medium', 'high'];
+    const idx = cycle.indexOf(chapter.confidence);
+    chapter.confidence = cycle[(idx + 1) % cycle.length];
     this.saveProgress();
   }
 
@@ -119,6 +121,22 @@ export class ChapterTrackerPageComponent implements OnInit, OnDestroy {
       case 'done': return 'Completed';
       case 'in-progress': return 'In Progress';
       default: return 'Pending';
+    }
+  }
+
+  getConfidenceLabel(level: Chapter['confidence']): string {
+    switch (level) {
+      case 'high': return 'High';
+      case 'medium': return 'Medium';
+      default: return 'Low';
+    }
+  }
+
+  getConfidenceColor(level: Chapter['confidence']): 'pending' | 'in-progress' | 'done' {
+    switch (level) {
+      case 'high': return 'done';
+      case 'medium': return 'in-progress';
+      default: return 'pending';
     }
   }
 
