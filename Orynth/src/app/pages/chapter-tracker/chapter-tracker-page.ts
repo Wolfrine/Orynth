@@ -7,6 +7,7 @@ import { SyllabusService } from '../../services/syllabus.service';
 import { BottomNavComponent } from '../../components/bottom-nav/bottom-nav';
 import { AuthService } from '../../services/auth.service';
 import { ProgressService } from '../../services/progress/progress.service';
+import { Chapter } from '../../interfaces/chapter.model';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -22,7 +23,7 @@ import { Subscription } from 'rxjs';
   styleUrl: './chapter-tracker-page.scss'
 })
 export class ChapterTrackerPageComponent implements OnInit, OnDestroy {
-  chapters: any[] = [];
+  chapters: Chapter[] = [];
   subject = '';
   noData = false;
   private allSubjects: string[] = [];
@@ -47,7 +48,7 @@ export class ChapterTrackerPageComponent implements OnInit, OnDestroy {
         const chaptersData = data[board][standard][subject];
         if (Array.isArray(chaptersData)) {
           if (chaptersData.length > 0 && typeof chaptersData[0] === 'string') {
-            this.chapters = chaptersData.map((name: string, i: number) => ({ id: i, name, status: 'pending', confidence: 0 }));
+            this.chapters = chaptersData.map((name: string, i: number) => ({ id: i, name, status: 'pending', confidence: 'low' as const }));
           } else {
             this.chapters = chaptersData;
           }
@@ -87,6 +88,11 @@ export class ChapterTrackerPageComponent implements OnInit, OnDestroy {
     const cycle = ['pending', 'in-progress', 'done'];
     const idx = cycle.indexOf(chapter.status);
     chapter.status = cycle[(idx + 1) % cycle.length];
+    this.saveProgress();
+  }
+
+  updateConfidence(chapter: Chapter, level: 'low' | 'medium' | 'high') {
+    chapter.confidence = level;
     this.saveProgress();
   }
 
