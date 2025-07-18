@@ -90,4 +90,7 @@ export class ProgressService {
       })
     );
   }
+
+  // confidence values are stored alongside chapter progress within the main
+  // progress object. Updating progress will also persist confidence.
 }

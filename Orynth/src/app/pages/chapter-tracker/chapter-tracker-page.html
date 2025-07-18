@@ -51,7 +51,12 @@
             </div>
             <div class="flex items-center space-x-3">
               <div class="text-xs text-gray-500 mb-1">Confidence</div>
-              <app-chip [label]="c.confidence + '%'" color="default"></app-chip>
+              <app-chip
+                class="cursor-pointer"
+                (click)="cycleConfidence(c)"
+                [label]="getConfidenceLabel(c.confidence)"
+                [color]="getConfidenceColor(c.confidence)"
+              ></app-chip>
             </div>
           </div>
         </div>
