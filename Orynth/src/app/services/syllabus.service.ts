@@ -5,7 +5,7 @@ import { catchError, tap } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class SyllabusService {
-  private syllabusUrl = 'https://asia-south1-gt-shared-service.cloudfunctions.net/api/syllabus';
+  private syllabusUrl = 'https://asia-south1-gt-shared-service.cloudfunctions.net/api/syllabus-preview';
   private cachedSyllabusData: any = null;
 
   constructor(private http: HttpClient) {}

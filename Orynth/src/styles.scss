@@ -55,6 +55,11 @@
   .card-shadow-hover {
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
   }
+  .no-select {
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
   .page-wrapper {
     padding-bottom: calc(80px + env(safe-area-inset-bottom));
   }
