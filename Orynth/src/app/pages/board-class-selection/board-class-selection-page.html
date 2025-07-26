@@ -44,6 +44,6 @@
   <div class="p-6">
     <button *ngIf="step === 1" (click)="nextStep()" [disabled]="!selectedBoard" class="w-full h-14 text-lg font-semibold bg-primary hover:bg-primary/90 text-white rounded-xl card-shadow hover:card-shadow-hover tap-highlight disabled:opacity-50 disabled:cursor-not-allowed">Continue</button>
     <button *ngIf="step === 2" (click)="startLearning()" [disabled]="!selectedClass" class="w-full h-14 flex items-center justify-center text-lg font-semibold bg-primary hover:bg-primary/90 text-white rounded-xl card-shadow hover:card-shadow-hover tap-highlight disabled:opacity-50 disabled:cursor-not-allowed">Start Learning</button>
-    <a routerLink="/feedback" class="block text-center text-sm text-primary mt-4">Not finding what you are looking for? Let us know!</a>
+    <a routerLink="/feedback" class="block text-center text-sm text-primary mt-4 underline tap-highlight">Not finding what you are looking for? Let us know!</a>
   </div>
 </div>
