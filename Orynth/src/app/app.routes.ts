@@ -40,6 +40,10 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/add-test-results/add-test-results-page').then(m => m.AddTestResultsPageComponent)
   },
   {
+    path: 'feedback',
+    loadComponent: () => import('./pages/feedback/feedback-page').then(m => m.FeedbackPageComponent)
+  },
+  {
     path: 'logs',
     loadComponent: () => import('./pages/logs/logs-page').then(m => m.LogsPageComponent)
   },
