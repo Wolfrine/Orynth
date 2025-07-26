@@ -24,13 +24,15 @@ export class TestResultsService {
 
     console.log('Attempting to save result', { uid, board, standard, subjectId, chapter, result });
 
-    if (!uid || !board || !standard || !subjectId || !chapter) {
+    if (!uid || !board || !standard || !subjectId) {
       console.error('Missing data for saving result', { uid, board, standard, subjectId, chapter });
       this.snackbar.show('Error saving result');
       return;
     }
 
-    const sanitizedChapter = chapter.replace(/[.#$\[\]/]/g, '_');
+    const sanitizedChapter = chapter
+      ? chapter.replace(/[.#$\[\]/]/g, '_')
+      : 'general';
     const ref = doc(this.firestore, `Users/${uid}`);
     const field = `testResults.${board}.${standard}.${subjectId}.${sanitizedChapter}`;
     try {
@@ -48,7 +50,9 @@ export class TestResultsService {
     if (!uid) return of([]);
     const board = this.appState.getBoard();
     const standard = this.appState.getStandard();
-    const sanitizedChapter = chapter.replace(/[.#$\[\]/]/g, '_');
+    const sanitizedChapter = chapter
+      ? chapter.replace(/[.#$\[\]/]/g, '_')
+      : 'general';
     const ref = doc(this.firestore, `Users/${uid}`);
     return docData(ref).pipe(
       map(data => (data as any)?.testResults?.[board]?.[standard]?.[subjectId]?.[sanitizedChapter] || []),
