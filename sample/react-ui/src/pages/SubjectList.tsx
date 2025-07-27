@@ -1,17 +1,23 @@
 
 import { useNavigate } from "react-router-dom";
-import { Calculator, Atom, Globe, Users, Palette, Home, BarChart3, User } from "lucide-react";
+import { Calculator, Atom, Globe, Users, Palette, Home, BarChart3, User, Trophy } from "lucide-react";
 
 const SubjectList = () => {
   const navigate = useNavigate();
 
   const subjects = [
-    { id: "mathematics", name: "Mathematics", icon: Calculator, progress: 68, color: "bg-blue-500" },
-    { id: "physics", name: "Physics", icon: Atom, progress: 45, color: "bg-purple-500" },
-    { id: "chemistry", name: "Chemistry", icon: Palette, progress: 72, color: "bg-green-500" },
-    { id: "biology", name: "Biology", icon: Users, progress: 38, color: "bg-red-500" },
-    { id: "english", name: "English", icon: Palette, progress: 85, color: "bg-indigo-500" },
-    { id: "social-science", name: "Social Science", icon: Globe, progress: 56, color: "bg-yellow-500" },
+    { id: "mathematics", name: "Mathematics", icon: Calculator, progress: 68, color: "bg-blue-500", 
+      results: { total: 3, avgScore: 78 } },
+    { id: "physics", name: "Physics", icon: Atom, progress: 45, color: "bg-purple-500", 
+      results: { total: 1, avgScore: 65 } },
+    { id: "chemistry", name: "Chemistry", icon: Palette, progress: 72, color: "bg-green-500", 
+      results: { total: 2, avgScore: 82 } },
+    { id: "biology", name: "Biology", icon: Users, progress: 38, color: "bg-red-500", 
+      results: { total: 0, avgScore: 0 } },
+    { id: "english", name: "English", icon: Palette, progress: 85, color: "bg-indigo-500", 
+      results: { total: 4, avgScore: 88 } },
+    { id: "social-science", name: "Social Science", icon: Globe, progress: 56, color: "bg-yellow-500", 
+      results: { total: 1, avgScore: 71 } },
   ];
 
   const getProgressColor = (progress: number) => {
@@ -59,7 +65,7 @@ const SubjectList = () => {
                       {subject.name}
                     </h3>
                     
-                    <div className="flex items-center space-x-3">
+                    <div className="flex items-center space-x-3 mb-2">
                       <div className="flex-1 bg-gray-200 rounded-full h-2">
                         <div
                           className={`h-2 rounded-full transition-all ${getProgressColor(subject.progress)}`}
@@ -70,6 +76,15 @@ const SubjectList = () => {
                         {subject.progress}%
                       </span>
                     </div>
+                    
+                    {subject.results.total > 0 && (
+                      <div className="flex items-center space-x-2">
+                        <Trophy className="w-3 h-3 text-primary" />
+                        <span className="text-xs text-gray-600">
+                          {subject.results.total} result{subject.results.total !== 1 ? 's' : ''} • {subject.results.avgScore}% avg
+                        </span>
+                      </div>
+                    )}
                   </div>
                 </div>
               </button>

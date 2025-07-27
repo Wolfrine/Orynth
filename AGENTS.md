@@ -80,3 +80,11 @@ Phase 1 Feature Status:
 - Board and class choices are now saved to `Users/{uid}.profile` when the user starts learning so they can be restored on future visits.
 - Subject list page reads the saved board and class if the in-memory state is empty to ensure the correct syllabus always loads.
 - Chapter tracker pushes progress for **all** subjects whenever any chapter is updated, keeping offline edits in sync.
+
+### React Sample
+
+The React version of the app lives in `sample/react-ui`. When syncing updates
+from [learn-spark-mobile-flow](https://github.com/Wolfrine/learn-spark-mobile-flow),
+copy the files directly into this folder and ensure any `.git` directory from the
+source is removed. **Do not create new folders** under `sample`; keeping the React
+code in one location prevents confusion with the Angular project.

@@ -45,6 +45,24 @@ const Dashboard = () => {
       {/* Content */}
       <div className="px-6 pt-6 pb-8">
         <div className="max-w-sm mx-auto">
+          {/* Anonymous User Warning */}
+          <div className="bg-gradient-to-r from-orange-50 to-red-50 border border-orange-200 rounded-xl p-4 mb-6 animate-fade-in">
+            <div className="flex items-start space-x-3">
+              <div className="w-8 h-8 bg-orange-100 rounded-full flex items-center justify-center flex-shrink-0">
+                <AlertCircle className="w-4 h-4 text-orange-600" />
+              </div>
+              <div className="flex-1">
+                <h4 className="font-semibold text-orange-900 mb-1">Secure Your Progress</h4>
+                <p className="text-sm text-orange-700 mb-3">
+                  You're using a guest account. Sign in to save your progress permanently and access it from any device.
+                </p>
+                <button className="bg-primary text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-primary/90 transition-colors">
+                  Sign In Now
+                </button>
+              </div>
+            </div>
+          </div>
+
           {/* Overall Progress */}
           <div className="bg-white rounded-xl p-6 card-shadow mb-6 text-center animate-fade-in">
             <div className="w-24 h-24 mx-auto mb-4 relative">

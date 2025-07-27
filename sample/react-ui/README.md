@@ -4,6 +4,11 @@
 
 **URL**: https://lovable.dev/projects/ae4980a3-dd44-45d7-8027-d4af7b16e4b7
 
+This directory mirrors the upstream project so you can run the React version
+alongside Angular. If you fetch newer designs, copy them into this same folder
+and delete any `.git` directory that might come with the source. Avoid creating
+new subfolders under `sample`.
+
 ## How can I edit this code?
 
 There are several ways of editing your application.

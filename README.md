@@ -45,6 +45,15 @@ npm install
 npm run dev
 ```
 
+### Updating the React sample
+
+This folder tracks a snapshot of the
+[learn-spark-mobile-flow](https://github.com/Wolfrine/learn-spark-mobile-flow)
+project. If you need newer designs, copy the updated files directly into
+`sample/react-ui` (remove the `.git` directory from the copy). **Do not create
+additional folders** under `sample`; keeping the React code in a single location
+prevents conflicts with the Angular app.
+
 ### Differences from the Angular UI
 
 - **Board and Class** – In React, the selection persists to `localStorage`.

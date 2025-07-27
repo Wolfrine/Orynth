@@ -71,7 +71,70 @@ export class TestResultsService {
       }),
       map(res => {
         console.log('Results loaded', res);
-        return res;
+      return res;
+    })
+  );
+  }
+
+  getSubjectSummary(subjectId: string): Observable<{ total: number; avgScore: number }> {
+    const uid = this.auth.getCurrentUserId();
+    if (!uid) return of({ total: 0, avgScore: 0 });
+    const board = this.appState.getBoard();
+    const standard = this.appState.getStandard();
+    const ref = doc(this.firestore, `Users/${uid}`);
+    return docData(ref).pipe(
+      map(data => {
+        const subj: any = (data as any)?.testResults?.[board]?.[standard]?.[subjectId] || {};
+        const all: any[] = [];
+        Object.values(subj).forEach((arr: any) => {
+          if (Array.isArray(arr)) all.push(...arr);
+        });
+        const total = all.length;
+        let avgScore = 0;
+        if (total > 0) {
+          const sum = all.reduce((acc, r) => {
+            const achieved = r.marksAchieved ?? r.achievedMarks ?? 0;
+            const totalMarks = r.totalMarks ?? 0;
+            return acc + (totalMarks > 0 ? (achieved / totalMarks) * 100 : 0);
+          }, 0);
+          avgScore = Math.round(sum / total);
+        }
+        return { total, avgScore };
+      }),
+      catchError(err => {
+        console.error('Error loading results', err);
+        this.snackbar.show('Error loading results');
+        return of({ total: 0, avgScore: 0 });
+      })
+    );
+  }
+
+  getChapterSummary(subjectId: string, chapter: string): Observable<{ total: number; avgScore: number }> {
+    const uid = this.auth.getCurrentUserId();
+    if (!uid) return of({ total: 0, avgScore: 0 });
+    const board = this.appState.getBoard();
+    const standard = this.appState.getStandard();
+    const sanitizedChapter = chapter.replace(/[.#$\[\]/]/g, '_');
+    const ref = doc(this.firestore, `Users/${uid}`);
+    return docData(ref).pipe(
+      map(data => {
+        const arr: any[] = (data as any)?.testResults?.[board]?.[standard]?.[subjectId]?.[sanitizedChapter] || [];
+        const total = arr.length;
+        let avgScore = 0;
+        if (total > 0) {
+          const sum = arr.reduce((acc, r) => {
+            const achieved = r.marksAchieved ?? r.achievedMarks ?? 0;
+            const totalMarks = r.totalMarks ?? 0;
+            return acc + (totalMarks > 0 ? (achieved / totalMarks) * 100 : 0);
+          }, 0);
+          avgScore = Math.round(sum / total);
+        }
+        return { total, avgScore };
+      }),
+      catchError(err => {
+        console.error('Error loading results', err);
+        this.snackbar.show('Error loading results');
+        return of({ total: 0, avgScore: 0 });
       })
     );
   }

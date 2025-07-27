@@ -5,6 +5,7 @@ import { SyllabusService } from '../../services/syllabus.service';
 import { AppStateService } from '../../services/app-state.service';
 import { AuthService } from '../../services/auth.service';
 import { ProgressService } from '../../services/progress/progress.service';
+import { TestResultsService } from '../../services/test-results.service';
 import { Firestore, doc, getDoc } from '@angular/fire/firestore';
 import { UnsyncedNoticeComponent } from '../../components/unsynced-notice/unsynced-notice';
 import { BottomNavComponent } from '../../components/bottom-nav/bottom-nav';
@@ -29,7 +30,8 @@ export class SubjectListPageComponent implements OnInit {
     private router: Router,
     public auth: AuthService,
     private progressService: ProgressService,
-    private firestore: Firestore
+    private firestore: Firestore,
+    private testResults: TestResultsService
   ) {}
 
   async ngOnInit(): Promise<void> {
@@ -62,7 +64,7 @@ export class SubjectListPageComponent implements OnInit {
               }
             } catch {}
           }
-          const subj = { id: key, name: key, progress };
+          const subj: any = { id: key, name: key, progress, results: { total: 0, avgScore: 0 } };
           this.progressService.getProgress(key).subscribe(remote => {
             if (remote && Array.isArray(remote)) {
               const completed = remote.filter((c: any) => c.status === 'done').length;
@@ -73,6 +75,9 @@ export class SubjectListPageComponent implements OnInit {
                 ? 0
                 : Math.round(this.subjects.reduce((acc, cur) => acc + cur.progress, 0) / this.subjects.length);
             }
+          });
+          this.testResults.getSubjectSummary(key).subscribe(sum => {
+            subj.results = sum;
           });
           return subj;
         });
