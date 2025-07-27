@@ -74,9 +74,12 @@ export class ChapterTrackerPageComponent implements OnInit, OnDestroy {
 
       this.progressSub = this.progressService.getProgress(subject).subscribe(remote => {
         if (remote && Array.isArray(remote)) {
-          this.chapters = this.chapters.map(c => {
-            const match = remote.find((s: any) => s.id === c.id && s.name === c.name);
-            return match ? { ...c, status: match.status, confidence: match.confidence } : c;
+          this.chapters.forEach(ch => {
+            const match = remote.find((s: any) => s.id === ch.id && s.name === ch.name);
+            if (match) {
+              ch.status = match.status;
+              ch.confidence = match.confidence;
+            }
           });
           localStorage.setItem(`${subject}-progress`, JSON.stringify(this.chapters));
         }
