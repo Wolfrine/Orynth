@@ -19,15 +19,30 @@ export class TestResultsService {
       return;
     }
     const uid = this.auth.getCurrentUserId();
-    if (!uid) return;
     const board = this.appState.getBoard();
     const standard = this.appState.getStandard();
+
+    console.log('Attempting to save result', { uid, board, standard, subjectId, chapter, result });
+
+    if (!uid || !board || !standard || !subjectId) {
+      console.error('Missing data for saving result', { uid, board, standard, subjectId, chapter });
+      this.snackbar.show('Error saving result');
+      return;
+    }
+
+    if (!chapter) {
+      console.error('Cannot save result: no chapter provided');
+      this.snackbar.show('Chapter not specified');
+      return;
+    }
+
+    const sanitizedChapter = chapter.replace(/[.#$\[\]/]/g, '_');
     const ref = doc(this.firestore, `Users/${uid}`);
-    const field = `testResults.${board}.${standard}.${subjectId}.${chapter}`;
+    const field = `testResults.${board}.${standard}.${subjectId}.${sanitizedChapter}`;
     try {
       await updateDoc(ref, { [field]: arrayUnion(result) });
       this.snackbar.show('Result saved');
-      console.log('Result saved');
+      console.log('Result saved', result);
     } catch (err) {
       console.error('Error saving result', err);
       this.snackbar.show('Error saving result');
@@ -39,16 +54,23 @@ export class TestResultsService {
     if (!uid) return of([]);
     const board = this.appState.getBoard();
     const standard = this.appState.getStandard();
+
+    if (!chapter) {
+      console.error('Cannot load results: no chapter provided');
+      return of([]);
+    }
+
+    const sanitizedChapter = chapter.replace(/[.#$\[\]/]/g, '_');
     const ref = doc(this.firestore, `Users/${uid}`);
     return docData(ref).pipe(
-      map(data => (data as any)?.testResults?.[board]?.[standard]?.[subjectId]?.[chapter] || []),
+      map(data => (data as any)?.testResults?.[board]?.[standard]?.[subjectId]?.[sanitizedChapter] || []),
       catchError(err => {
         console.error('Error loading results', err);
         this.snackbar.show('Error loading results');
         return of([]);
       }),
       map(res => {
-        console.log('Results loaded');
+        console.log('Results loaded', res);
         return res;
       })
     );
