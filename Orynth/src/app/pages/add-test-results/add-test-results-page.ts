@@ -55,6 +55,21 @@ export class AddTestResultsPageComponent implements OnInit {
     this.loadResults();
   }
 
+  getTypeConfig(type: string) {
+    switch (type.toLowerCase()) {
+      case 'practice':
+        return { color: 'bg-blue-100 text-blue-700', icon: '📝' };
+      case 'exam':
+        return { color: 'bg-red-100 text-red-700', icon: '🎯' };
+      default:
+        return { color: 'bg-yellow-100 text-yellow-700', icon: '📋' };
+    }
+  }
+
+  formatDate(date: string) {
+    return new Date(date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+  }
+
   goBack() {
     this.router.navigate(['/chapter-tracker']);
   }

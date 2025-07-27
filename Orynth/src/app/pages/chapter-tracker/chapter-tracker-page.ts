@@ -9,6 +9,7 @@ import { AuthService } from '../../services/auth.service';
 import { ProgressService } from '../../services/progress/progress.service';
 import { Chapter } from '../../interfaces/chapter.model';
 import { Subscription } from 'rxjs';
+import { TestResultsService } from '../../services/test-results.service';
 
 @Component({
   selector: 'app-chapter-tracker-page',
@@ -33,7 +34,8 @@ export class ChapterTrackerPageComponent implements OnInit, OnDestroy {
     private syllabusService: SyllabusService,
     private progressService: ProgressService,
     public auth: AuthService,
-    private router: Router
+    private router: Router,
+    private testResults: TestResultsService
   ) {
     this.subject = this.appState.getSubject();
   }
@@ -48,9 +50,9 @@ export class ChapterTrackerPageComponent implements OnInit, OnDestroy {
         const chaptersData = data[board][standard][subject];
         if (Array.isArray(chaptersData)) {
           if (chaptersData.length > 0 && typeof chaptersData[0] === 'string') {
-            this.chapters = chaptersData.map((name: string, i: number) => ({ id: i, name, status: 'pending', confidence: 'low' as const }));
+            this.chapters = chaptersData.map((name: string, i: number) => ({ id: i, name, status: 'pending', confidence: 'low' as const, results: [], resultsSummary: { total: 0, avgScore: 0 } }));
           } else {
-            this.chapters = chaptersData;
+            this.chapters = chaptersData.map((c: any) => ({ ...c, results: c.results || [], resultsSummary: c.resultsSummary || { total: 0, avgScore: 0 } }));
           }
         } else {
           this.chapters = [];
@@ -78,6 +80,12 @@ export class ChapterTrackerPageComponent implements OnInit, OnDestroy {
           });
           localStorage.setItem(`${subject}-progress`, JSON.stringify(this.chapters));
         }
+      });
+
+      this.chapters.forEach(ch => {
+        this.testResults.getChapterSummary(subject, ch.name).subscribe(sum => {
+          (ch as any).resultsSummary = sum;
+        });
       });
 
       this.noData = this.chapters.length === 0;

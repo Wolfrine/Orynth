@@ -1,15 +1,24 @@
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { ArrowLeft, Home, BarChart3, User } from "lucide-react";
+import { ArrowLeft, Home, BarChart3, User, Plus, Trophy } from "lucide-react";
 
 type Status = "pending" | "in-progress" | "done";
 type Confidence = "low" | "medium" | "high";
+
+interface Result {
+  id: string;
+  type: "practice" | "test" | "exam";
+  totalMarks: number;
+  achievedMarks: number;
+  date: string;
+}
 
 interface Chapter {
   id: string;
   name: string;
   status: Status;
   confidence: Confidence;
+  results: Result[];
 }
 
 const ChapterTracker = () => {
@@ -17,14 +26,18 @@ const ChapterTracker = () => {
   const { subject } = useParams();
   
   const [chapters, setChapters] = useState<Chapter[]>([
-    { id: "1", name: "Number Systems", status: "done", confidence: "high" },
-    { id: "2", name: "Polynomials", status: "done", confidence: "medium" },
-    { id: "3", name: "Coordinate Geometry", status: "in-progress", confidence: "medium" },
-    { id: "4", name: "Linear Equations", status: "in-progress", confidence: "low" },
-    { id: "5", name: "Introduction to Euclid's Geometry", status: "pending", confidence: "low" },
-    { id: "6", name: "Lines and Angles", status: "pending", confidence: "low" },
-    { id: "7", name: "Triangles", status: "pending", confidence: "low" },
-    { id: "8", name: "Quadrilaterals", status: "pending", confidence: "low" },
+    { id: "1", name: "Number Systems", status: "done", confidence: "high", results: [
+      { id: "r1", type: "test", totalMarks: 100, achievedMarks: 85, date: "2024-01-15" }
+    ]},
+    { id: "2", name: "Polynomials", status: "done", confidence: "medium", results: [
+      { id: "r2", type: "practice", totalMarks: 50, achievedMarks: 38, date: "2024-01-10" }
+    ]},
+    { id: "3", name: "Coordinate Geometry", status: "in-progress", confidence: "medium", results: [] },
+    { id: "4", name: "Linear Equations", status: "in-progress", confidence: "low", results: [] },
+    { id: "5", name: "Introduction to Euclid's Geometry", status: "pending", confidence: "low", results: [] },
+    { id: "6", name: "Lines and Angles", status: "pending", confidence: "low", results: [] },
+    { id: "7", name: "Triangles", status: "pending", confidence: "low", results: [] },
+    { id: "8", name: "Quadrilaterals", status: "pending", confidence: "low", results: [] },
   ]);
 
   const subjectName = subject?.replace("-", " ").toUpperCase() || "SUBJECT";
@@ -122,9 +135,28 @@ const ChapterTracker = () => {
                 style={{ animationDelay: `${index * 0.05}s` }}
               >
                 <div className="flex items-center justify-between mb-3">
-                  <h3 className="font-medium text-gray-900 flex-1 pr-4">
-                    {chapter.name}
-                  </h3>
+                  <div className="flex-1">
+                    <h3 className="font-medium text-gray-900 mb-1">
+                      {chapter.name}
+                    </h3>
+                    {chapter.results.length > 0 && (
+                      <div className="flex items-center space-x-2">
+                        <Trophy className="w-3 h-3 text-primary" />
+                        <span className="text-xs text-gray-600">
+                          {chapter.results.length} result{chapter.results.length !== 1 ? 's' : ''} • 
+                          {chapter.results.length > 0 && ` ${Math.round(
+                            chapter.results.reduce((sum, r) => sum + (r.achievedMarks / r.totalMarks * 100), 0) / chapter.results.length
+                          )}% avg`}
+                        </span>
+                      </div>
+                    )}
+                  </div>
+                  <button
+                    onClick={() => navigate(`/result-entry/${subject}/${chapter.id}`)}
+                    className="w-8 h-8 bg-primary/10 hover:bg-primary/20 rounded-full flex items-center justify-center tap-highlight transition-colors"
+                  >
+                    <Plus className="w-4 h-4 text-primary" />
+                  </button>
                 </div>
                 
                 <div className="flex items-center justify-between">

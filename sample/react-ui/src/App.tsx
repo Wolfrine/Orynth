@@ -8,6 +8,7 @@ import Index from "./pages/Index";
 import BoardSelection from "./pages/BoardSelection";
 import SubjectList from "./pages/SubjectList";
 import ChapterTracker from "./pages/ChapterTracker";
+import ResultEntry from "./pages/ResultEntry";
 import Dashboard from "./pages/Dashboard";
 import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
@@ -25,6 +26,7 @@ const App = () => (
           <Route path="/board-selection" element={<BoardSelection />} />
           <Route path="/subjects" element={<SubjectList />} />
           <Route path="/chapters/:subject" element={<ChapterTracker />} />
+          <Route path="/result-entry/:subject/:chapterId" element={<ResultEntry />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="*" element={<NotFound />} />
