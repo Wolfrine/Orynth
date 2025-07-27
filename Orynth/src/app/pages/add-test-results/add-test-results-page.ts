@@ -29,7 +29,8 @@ export class AddTestResultsPageComponent implements OnInit {
 
   ngOnInit(): void {
     const nav = this.router.getCurrentNavigation();
-    this.chapter = nav?.extras.state?.['chapter'] || '';
+    const state = nav?.extras.state || history.state;
+    this.chapter = state?.['chapter'] || '';
     this.subject = this.appState.getSubject();
     this.loadResults();
   }
