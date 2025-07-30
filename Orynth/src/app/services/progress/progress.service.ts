@@ -21,6 +21,10 @@ export class ProgressService {
     if (!this.auth.isLoggedIn()) {
       return;
     }
+    if (this.appState.isReadOnly()) {
+      this.snackbar.show('Read-only mode');
+      return;
+    }
     const uid = this.auth.getCurrentUserId();
     if (!uid) {
       return;
@@ -48,6 +52,10 @@ export class ProgressService {
 
   async setAllProgress(progressMap: any) {
     if (!this.auth.isLoggedIn()) {
+      return;
+    }
+    if (this.appState.isReadOnly()) {
+      this.snackbar.show('Read-only mode');
       return;
     }
     const uid = this.auth.getCurrentUserId();

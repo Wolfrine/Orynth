@@ -80,6 +80,7 @@ Phase 1 Feature Status:
 - Board and class choices are now saved to `Users/{uid}.profile` when the user starts learning so they can be restored on future visits.
 - Subject list page reads the saved board and class if the in-memory state is empty to ensure the correct syllabus always loads.
 - Chapter tracker pushes progress for **all** subjects whenever any chapter is updated, keeping offline edits in sync.
+- Admin users can pick another account on the profile page and view their data in read-only mode. Each login records a `lastLogin` timestamp.
 
 ### React Sample
 

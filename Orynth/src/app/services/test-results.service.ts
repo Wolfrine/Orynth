@@ -18,6 +18,10 @@ export class TestResultsService {
     if (!this.auth.isLoggedIn()) {
       return;
     }
+    if (this.appState.isReadOnly()) {
+      this.snackbar.show('Read-only mode');
+      return;
+    }
     const uid = this.auth.getCurrentUserId();
     const board = this.appState.getBoard();
     const standard = this.appState.getStandard();
