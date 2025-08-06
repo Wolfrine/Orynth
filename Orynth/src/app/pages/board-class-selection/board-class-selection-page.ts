@@ -49,6 +49,10 @@ export class BoardClassSelectionPageComponent implements OnInit {
     this.appState.setStandard(this.selectedClass);
 
     if (this.auth.isLoggedIn()) {
+      if (this.appState.isReadOnly()) {
+        this.router.navigate(['/subject-list']);
+        return;
+      }
       const uid = this.auth.getCurrentUserId();
       const subjects = Object.keys(this.syllabus[this.selectedBoard]?.[this.selectedClass] || {});
       const progress: any = {};

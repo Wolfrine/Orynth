@@ -62,6 +62,12 @@ prevents conflicts with the Angular app.
 - **Profile Page** – The React profile page reads and writes all details from
   `localStorage`, whereas the Angular page syncs them with Firestore.
 
+## Profile & Admin View
+
+Every time a user logs in or opens the app their `Users/{uid}` document is updated with a `lastLogin` timestamp. The profile page shows this time.
+
+If the logged in document contains `admin: true` a dropdown listing up to ten users appears. Selecting a user switches the entire UI to display that user's information in read-only mode. Choose the blank option to return to your own data.
+
 ## Firestore Document Paths
 
 Always pass an **even number of path segments** to `doc()` so it points to a

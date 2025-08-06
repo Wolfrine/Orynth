@@ -5,6 +5,7 @@ export class AppStateService {
   private board = '';
   private standard = '';
   private subject = '';
+  private selectedUserId = '';
 
   setBoard(value: string) {
     this.board = value;
@@ -28,5 +29,21 @@ export class AppStateService {
 
   getSubject(): string {
     return this.subject;
+  }
+
+  setSelectedUserId(uid: string) {
+    this.selectedUserId = uid;
+  }
+
+  getSelectedUserId(): string {
+    return this.selectedUserId;
+  }
+
+  clearSelectedUserId() {
+    this.selectedUserId = '';
+  }
+
+  isReadOnly(): boolean {
+    return this.selectedUserId !== '';
   }
 }
